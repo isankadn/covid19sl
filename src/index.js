@@ -354,7 +354,7 @@ function drawMapPrefectures(pageDraws) {
   // Start the Mapbox search expression
   let prefecturePaint = [
     'match',
-    ['get', 'NAME_1'],
+    ['get', 'name'],
   ]
 
   // Go through all prefectures looking for cases
