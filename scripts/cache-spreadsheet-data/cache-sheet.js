@@ -5,13 +5,14 @@ const AWS = require("aws-sdk");
 
 function getEnv(name) {
   const value = process.env[name];
+
   if (!value) {
     throw new Error(name + " env var is required");
   }
   return value;
 }
 
-/// AWS https://covid19japan.s3-ap-northeast-1.amazonaws.com/data.json
+/// AWS https://covid-19sl.s3-ap-northeast-1.amazonaws.com/data.json
 
 const ID = getEnv("AWS_S3_ID");
 const SECRET = getEnv("AWS_S3_SECRET");
@@ -94,7 +95,7 @@ async function uploadPublicJSONToS3(filename, content) {
 }
 /// / AWS
 
-const SHEET = '1w9ZGTZHEQUF-t_4HQyCL_QOTiobFOzse7s1n25VJk7w'
+const SHEET = '1zIgPU0ZlYkiKaavYAUcHKgEP95jdaMaf9ljJgRqtog4'
 const SHEET_PREFECTURES_TAB = 2;
 const SHEET_DAILY_SUM_TAB = 3;
 const SHEET_LAST_UPDATED_TAB = 4;
