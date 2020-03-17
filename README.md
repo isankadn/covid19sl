@@ -1,4 +1,4 @@
-# COVID19Japan.com
+# covidsl.com
 
 A COVID-19 Coronavirus tracker for Japan. Government agencies release detailed data, but in difficult to read formats and usually only in Japaneese.
 
@@ -92,7 +92,7 @@ NHK Daily Aggregates
 
 ## Contributing Code
 
-If you would like to contribute features / refactor / etc, please open an Issue on this repo, and tag @reustle - We can then open a new Pull Request if it is deemed in line with the projects goals.
+If you would like to contribute features / refactor / etc, please open an Issue on this repo, and tag @isankadn - We can then open a new Pull Request if it is deemed in line with the projects goals.
 
 ### Requirements
 
@@ -130,9 +130,9 @@ npm run build-prod
 
 ## Contributors
 
-- [Shane Reustle](https://reustle.org): Development
-- [Jiahui Zhou](https://jiahuizhou.design/): Concept, Design, and Data
-- and [these developers](https://github.com/reustle/covid19japan/graphs/contributors)
+- [Isanka Wijerathne]: Development
+
+- and [these developers](https://github.com/isankadn/covidsl/graphs/contributors)
 
 ## Other Resources
 - [都道府県別新型コロナウイルス感染者数マッ (Arcgis)](https://jagjapan.maps.arcgis.com/apps/opsdashboard/index.html#/259ce3e3e2bf4c77876d4ecde6ea2564)
@@ -143,4 +143,4 @@ npm run build-prod
 - [Toyo Keizai Situation Report](https://toyokeizai.net/sp/visual/tko/covid19/) (Data from MHLW)
 - [Patient connections and clusters map in Japan 新型コロナウイルスの事例マップ](https://www.coromap.info/)
 - Wikipedia on 2020 Coronavirus Outbreak in Japan [English](https://en.wikipedia.org/wiki/2020_coronavirus_outbreak_in_Japan) and [Japanese](https://ja.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B2019%E5%B9%B4%E3%82%B3%E3%83%AD%E3%83%8A%E3%82%A6%E3%82%A4%E3%83%AB%E3%82%B9%E6%84%9F%E6%9F%93%E7%97%87%E3%81%AE%E6%B5%81%E8%A1%8C%E7%8A%B6%E6%B3%81) - Sources
-- [@covid19japan on Twitter (Suspended)](https://twitter.com/covid19japan)
+- [@covidsl on Twitter (Suspended)](https://twitter.com/covidsl)
