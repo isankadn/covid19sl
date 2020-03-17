@@ -1,6 +1,6 @@
 on:
   schedule:
-  - cron: '*/2 * * * *'
+  - cron: '*/3 * * * *'
 name: Get Latest Data
 jobs:
   getLatestData:
