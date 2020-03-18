@@ -52,5 +52,4 @@ npm run build-prod
 
 - [Isanka Wijerathne]: Development
 
-- and [these developers](https://github.com/isankadn/covidsl/graphs/contributors)
 
