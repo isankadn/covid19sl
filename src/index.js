@@ -11,6 +11,9 @@ const PAGE_TITLE = 'Coronavirus Disease (COVID-19) Sri Lanka Tracker'
 let LANG = 'en'
 //https://docs.google.com/spreadsheets/d/e/2PACX-1vSCRHzTX82QIyeYRwyzEdLsQZN7uq8Zqf5D1lH5g99qBbOvyQQf0xJit4WvQe2xFyzee3UrmXEkZkLa/pub?output=csv
 // Global vars
+const JSON_PATH_HPB = 'http://hpb.health.gov.lk/api/get-current-statistical'
+
+
 let ddb = {
   prefectures: undefined,
   trend: undefined,
@@ -55,6 +58,18 @@ function loadData(callback) {
   .then(function(data){
     callback(data)
   })
+}
+
+function loadDataHpb(callback) {
+    // Load the json data file
+
+    fetch(JSON_PATH_HPB)
+        .then(function(res) {
+            return res.json()
+        })
+        .then(function(data) {
+            callback(data)
+        })
 }
 
 
@@ -246,6 +261,7 @@ function drawPrefectureTable(prefectures, totals) {
 
   // Parse values so we can sort
   _.map(prefectures, function(pref){
+    //   console.log(pref)
     // TODO change to confirmed
     pref.confirmed = (pref.cases?parseInt(pref.cases):0)
     pref.recovered = (pref.recovered?parseInt(pref.recovered):0)
@@ -287,6 +303,41 @@ function drawPrefectureTable(prefectures, totals) {
   }
 
   dataTable.innerHTML = dataTable.innerHTML + "<tr class='totals'><td>" + totalStr + "</td><td>" + totals.confirmed + "</td><td>" + totals.recovered + "</td><td>" + totals.deceased + "</td></tr>"
+}
+
+
+function drawHositalTable(data) {
+  // Draw the Cases By Prefecture table
+    // console.log(data)
+  let dataTable = document.querySelector('#hospital-table tbody')
+  let unspecifiedRow = ''
+
+  // Remove the loading cell
+
+  dataTable.innerHTML = ''
+
+   _.map(data, function(d) {
+          console.log(d)
+       // TODO change to confirmed
+       d.hospitalname = d.hospital.name
+       d.testedtotal = d.cumulative_total
+       d.treatmenttotal = d.treatment_total
+       // TODO change to deceased
+    //    d.deceased = d.deaths ? parseInt(d.deaths) : 0
+        console.log(d.hospitalname)
+        console.log(d.testedtotal)
+        console.log(d.treatmenttotal)
+   })
+
+ _.orderBy(data, 'confirmed', 'desc').map(function(d){
+      if (!d.hospitalname && !d.testedtotal && !d.treatmenttotal) {
+          return
+      }
+      dataTable.innerHTML = dataTable.innerHTML + "<tr><td class='hospitalname'>" + d.hospitalname + "</td><td>" +  d.testedtotal + "</td><td>" +  d.treatmenttotal + "</td></tr>"
+    })
+
+
+
 }
 
 
@@ -520,11 +571,24 @@ window.onload = function(){
     })
   }
 
+  function LoadHpbDataOnPage(){
+      loadDataHpb(
+          function(data) {
+             jsonHpbData = data
+            //  console.log(jsonHpbData)
+            //  console.log(jsonHpbData['data']['hospital_data'])
+             drawHositalTable(jsonHpbData['data']['hospital_data'])
+          }
+      )
+  }
+
   loadDataOnPage()
+  LoadHpbDataOnPage()
 
   // Reload data every INTERVAL
   setInterval(function() {
     pageDraws++
     loadDataOnPage()
+    LoadHpbDataOnPage()
   }, FIVE_MINUTES_IN_MS)
 }
