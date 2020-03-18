@@ -1,5 +1,5 @@
-mapboxgl.accessToken =
-    'pk.eyJ1IjoiaXNhbmthZG4iLCJhIjoiY2s3dmIxYmxhMGJ2OTNmbzJnZjFxcmF6ZyJ9.Pgj6f8H7NpCRI1fNOK3MfA'
+// mapboxgl.accessToken ='pk.eyJ1IjoiaXNhbmthZG4iLCJhIjoiY2s3dmIxYmxhMGJ2OTNmbzJnZjFxcmF6ZyJ9.Pgj6f8H7NpCRI1fNOK3MfA'
+mapboxgl.accessToken ='pk.eyJ1IjoiaXNhbmthZG4iLCJhIjoiY2s3eGI3ams2MDFsMTNmcjRsdnh4ZTNpOSJ9.C7esI-qqpgWXdPbZe04aOw'
 const PREFECTURE_JSON_PATH = 'static/prefectures.geojson'
 const JSON_PATH = 'https://covid-19sl.s3-ap-northeast-1.amazonaws.com/data.json'
 const TIME_FORMAT = 'YYYY-MM-DD'
