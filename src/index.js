@@ -329,7 +329,7 @@ function drawHositalTable(data) {
         console.log(d.treatmenttotal)
    })
 
- _.orderBy(data, 'confirmed', 'desc').map(function(d){
+ _.orderBy(data, 'testedtotal', 'desc').map(function(d){
       if (!d.hospitalname && !d.testedtotal && !d.treatmenttotal) {
           return
       }
