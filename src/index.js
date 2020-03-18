@@ -352,10 +352,7 @@ function drawMapPrefectures(pageDraws) {
   }
 
   // Start the Mapbox search expression
-  let prefecturePaint = [
-    'match',
-    ['get', 'name'],
-  ]
+  let prefecturePaint = ['match', ['get', 'NAME_1']]
 
   // Go through all prefectures looking for cases
   ddb.prefectures.map(function(prefecture){
