@@ -50,6 +50,6 @@ npm run build-prod
 
 ## Contributors
 
-- [Isanka Wijerathne]: Development
+- [Isanka Wijerathne](https://twitter.com/isankadn): Development
 
 
