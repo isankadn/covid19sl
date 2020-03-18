@@ -119,8 +119,8 @@ function drawMap() {
       container: 'map-container',
       style: 'mapbox://styles/mapbox/light-v10',
       zoom: 2,
-      minZoom: 0.5,
-      maxZoom: 9,
+      minZoom: 1,
+      maxZoom: 7,
       center: {
           lng: 7.294545,
           lat: 80.6082719
