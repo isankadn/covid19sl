@@ -6,60 +6,62 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  mode: 'development',  
-  entry: { 
-    index: ['./src/index.js', './src/index.scss']
-  },
-  output: {
-    path: path.resolve(__dirname, 'docs'),
-    filename: '[name].js',
-    publicPath: '/'
-  },
+    mode: 'development',
+    entry: {
+        index: ['./src/index.js', './src/index.scss']
+    },
+    output: {
+        path: path.resolve(__dirname, 'docs'),
+        filename: '[name].js',
+        publicPath: '/'
+    },
 
-  devServer: {
-    contentBase: './docs'
-  },
+    devServer: {
+        contentBase: './docs'
+    },
 
-  plugins: [
-    new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: 'src/index.html',
-      chunks: ['index']
-    }),
-    new HtmlWebpackPlugin({
-      bodyClass: 'embed',
-      filename: 'embed.html',
-      template: 'src/index.html',
-      chunks: ['index']
-    }),
-    new CopyPlugin([
-      { from: 'static/**', to: '.', flatten: false }
-    ]),
-    new MiniCssExtractPlugin({
-      filename: '[name].css'
-    })  
-  ],
-  module: {
-    rules:[
-      {
-        test:  /\.(png|svg|jpg|gif|ico|geojson)$/,
-        use: [
-          'file-loader'
+    plugins: [
+        new CleanWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: 'src/index.html',
+            chunks: ['index']
+        }),
+        new HtmlWebpackPlugin({
+            bodyClass: 'embed',
+            filename: 'embed.html',
+            template: 'src/index.html',
+            chunks: ['index']
+        }),
+        new HtmlWebpackPlugin({
+            bodyClass: 'impactmodel',
+            filename: 'impactmodel.html',
+            template: 'src/impactmodel.html',
+            chunks: ['impactmodel']
+        }),
+        new CopyPlugin([{ from: 'static/**', to: '.', flatten: false }]),
+        new MiniCssExtractPlugin({
+            filename: '[name].css'
+        })
+    ],
+    module: {
+        rules: [
+            {
+                test: /\.(png|svg|jpg|gif|ico|geojson)$/,
+                use: ['file-loader']
+            },
+            {
+                test: /\.scss$/,
+                use: [
+                    { loader: MiniCssExtractPlugin.loader },
+                    { loader: 'css-loader' },
+                    { loader: 'postcss-loader' },
+                    {
+                        loader: 'sass-loader',
+                        options: { implementation: require('node-sass') }
+                    }
+                ]
+            }
         ]
-      },
-      {
-        test: /\.scss$/,
-        use: [
-          { loader: MiniCssExtractPlugin.loader },
-          { loader: 'css-loader'},
-          { loader: 'postcss-loader'},
-          {
-            loader: 'sass-loader',
-            options: {implementation: require('node-sass')}
-          }
-        ]
-      }
-    ]
-  }
-};
+    }
+}
