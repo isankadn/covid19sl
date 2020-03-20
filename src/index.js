@@ -261,7 +261,7 @@ function drawPrefectureTable(prefectures, totals) {
 
   // Parse values so we can sort
   _.map(prefectures, function(pref){
-    //   console.log(pref)
+      console.log(pref.recovered)
     // TODO change to confirmed
     pref.confirmed = (pref.cases?parseInt(pref.cases):0)
     pref.recovered = (pref.recovered?parseInt(pref.recovered):0)
@@ -290,7 +290,7 @@ function drawPrefectureTable(prefectures, totals) {
     }else if (pref.prefecture == 'Total'){
       // Skip
     }else{
-      dataTable.innerHTML = dataTable.innerHTML + "<tr><td>" + prefStr + "</td><td>" + pref.confirmed + "</td><td></td><td>" + (pref.deceased?pref.deceased:'') + "</td></tr>"
+      dataTable.innerHTML = dataTable.innerHTML + "<tr><td>" + prefStr + "</td><td>" + pref.confirmed + "</td><td>" + pref.recovered + "</td><td>" + (pref.deceased?pref.deceased:0) + "</td></tr>"
     }
     return true
   })
@@ -372,12 +372,7 @@ function drawKpis(totals, totalsDiff) {
 function drawTotalHospitalized(totalhospitalized) {
 
     function setKpi(key, value) {
-        console.log(
-            document.querySelector('#kpi-tested' + ' .value').innerHTML
-        )
-        console.log(
-            document.querySelector('#kpi-tested' + ' .hositalized').innerHTML
-        )
+
 document.querySelector('#kpi-tested' + ' .hositalized').innerHTML = value
 
     }
