@@ -72,10 +72,11 @@ h1 {
       margin-bottom: 8px;
       font-weight: 700;
     }
+    .value-hositalized,
     .value {
       font-size: 32px;
       font-weight: 800;
-      margin-bottom: 14px;
+
     }
     .label {
       color: $primary-black;
@@ -273,4 +274,8 @@ body.embed {
   .embed-hide { display: none; }
   .embed-show { display: block; }
   span.embed-show { display: inline; }
+}
+
+.value-hositalized {
+    display: inline-flex;
 }

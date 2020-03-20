@@ -316,17 +316,19 @@ function drawHositalTable(data) {
 
   dataTable.innerHTML = ''
 
+
+
+//   console.log(treatment_total)
+
    _.map(data, function(d) {
-          console.log(d)
+        //   console.log(d)
        // TODO change to confirmed
        d.hospitalname = d.hospital.name
        d.testedtotal = d.cumulative_total
        d.treatmenttotal = d.treatment_total
        // TODO change to deceased
     //    d.deceased = d.deaths ? parseInt(d.deaths) : 0
-        console.log(d.hospitalname)
-        console.log(d.testedtotal)
-        console.log(d.treatmenttotal)
+
    })
 
  _.orderBy(data, 'testedtotal', 'desc').map(function(d){
@@ -367,6 +369,21 @@ function drawKpis(totals, totalsDiff) {
 
 }
 
+function drawTotalHospitalized(totalhospitalized) {
+
+    function setKpi(key, value) {
+        console.log(
+            document.querySelector('#kpi-tested' + ' .value').innerHTML
+        )
+        console.log(
+            document.querySelector('#kpi-tested' + ' .hositalized').innerHTML
+        )
+document.querySelector('#kpi-tested' + ' .hositalized').innerHTML = value
+
+    }
+
+    setKpi('hospitalized', '&nbsp (' + totalhospitalized + ')')
+}
 
 function drawLastUpdated(lastUpdated) {
   // Draw the last updated time
@@ -576,8 +593,20 @@ window.onload = function(){
           function(data) {
              jsonHpbData = data
             //  console.log(jsonHpbData)
-            //  console.log(jsonHpbData['data']['hospital_data'])
-             drawHositalTable(jsonHpbData['data']['hospital_data'])
+            hospitalData = jsonHpbData['data']['hospital_data']
+             drawHositalTable(hospitalData)
+
+              let treatment_total = 0
+              for (var i = 0; i < hospitalData.length; i++) {
+                  //   console.log(i)
+                  treatment_total += hospitalData[i]['treatment_total']
+                  //   console.log(data[i]['treatment_total'])
+              }
+
+            if (!document.body.classList.contains('embed-mode')) {
+             drawTotalHospitalized(treatment_total)
+            }
+
           }
       )
   }
