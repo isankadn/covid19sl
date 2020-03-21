@@ -13,11 +13,6 @@ const fs = require('fs')
 app.use(express.static('docs', { dotfiles: 'allow' }))
 // app.use( bodyParser.json() );       // to support JSON-encoded bodies
 
-app.use(requireHTTPS)
-
-app.get('*', function(req, res, next) {
-    res.redirect('https://' + req.headers.host + '/' + req.path)
-})
 
 https
     .createServer(
@@ -36,3 +31,8 @@ https
     )
     .listen(443)
 
+var http = require('http')
+http.createServer(function(req, res) {
+    res.writeHead(301, { Location: 'https://' + req.headers['host'] + req.url })
+    res.end()
+}).listen(80)
