@@ -614,13 +614,13 @@ window.onload = function(){
             hospitalData = jsonHpbData['data']['hospital_data']
              drawHositalTable(hospitalData)
 
-              let treatment_total = 0
-              for (var i = 0; i < hospitalData.length; i++) {
-                  //   console.log(i)
-                  treatment_total += hospitalData[i]['treatment_total']
-                  //   console.log(data[i]['treatment_total'])
-              }
-
+            //   let treatment_total = 0
+            //   for (var i = 0; i < hospitalData.length; i++) {
+            //       //   console.log(i)
+            //       treatment_total += hospitalData[i]['treatment_total']
+            //       //   console.log(data[i]['treatment_total'])
+            //   }
+            treatment_total = jsonHpbData['data']['local_total_number_of_individuals_in_hospitals']
             if (!document.body.classList.contains('embed-mode')) {
              drawTotalHospitalized(treatment_total)
             }
