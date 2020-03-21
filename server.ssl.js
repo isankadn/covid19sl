@@ -19,10 +19,12 @@ https
     .createServer(
         {
             key: fs.readFileSync(
-                '/etc/letsencrypt/live/covidsl.com/fullchain.pem'
+                '/etc/letsencrypt/live/covidsl.com/fullchain.pem',
+                'utf8'
             ),
             cert: fs.readFileSync(
-                '/etc/letsencrypt/live/covidsl.com/privkey.pem'
+                '/etc/letsencrypt/live/covidsl.com/privkey.pem',
+                'utf8'
             )
         },
         app
