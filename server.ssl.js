@@ -4,9 +4,7 @@ const app = express()
 const http = require('http')
 const https = require('https')
 const fs = require('fs')
-const querystring = require('querystring')
-const compression = require('compression')
-const bodyParser = require('body-parser')
+
 
 
 // app.use(compression()); // GZIP http sent files for performance
