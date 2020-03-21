@@ -2,7 +2,7 @@
 const express = require('express')
 
 const app = express()
-app.use(express.static('docs'))
+app.use(express.static('docs', { dotfiles: 'allow' }))
 
 let port = process.env.PORT || 4000
 
