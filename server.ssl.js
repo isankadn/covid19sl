@@ -13,8 +13,11 @@ const fs = require('fs')
 app.use(express.static('docs', { dotfiles: 'allow' }))
 // app.use( bodyParser.json() );       // to support JSON-encoded bodies
 
-// app.listen(80)
-app.all('*', (req, res) => res.redirect(300, 'https://covidsl.com'))
+app.listen(80)
+app.get('*', function(req, res, next) {
+    res.redirect('https://' + req.headers.host + '/' + req.path)
+})
+
 https
     .createServer(
         {
