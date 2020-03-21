@@ -121,7 +121,7 @@ function drawMap() {
       style: 'mapbox://styles/mapbox/light-v10',
       zoom: 2,
       minZoom: 1,
-      maxZoom: 7,
+      maxZoom: 9,
       center: {
           lng: 7.294545,
           lat: 80.6082719
@@ -262,7 +262,7 @@ function drawPrefectureTable(prefectures, totals) {
 
   // Parse values so we can sort
   _.map(prefectures, function(pref){
-      console.log(pref.recovered)
+    //   console.log(pref.recovered)
     // TODO change to confirmed
     pref.confirmed = (pref.cases?parseInt(pref.cases):0)
     pref.recovered = (pref.recovered?parseInt(pref.recovered):0)
@@ -277,12 +277,15 @@ function drawPrefectureTable(prefectures, totals) {
     }
 
     let prefStr
+
+
     if(LANG == 'en'){
         prefStr = pref.prefecture
-    }else{
-      prefStr = pref.prefectureja
+    }else if (LANG == 'si'){
+      prefStr = pref.prefecturesi
+    }else if(LANG == 'ta'){
+      prefStr = pref.prefectureta
     }
-
     // TODO Make this pretty
 
     if(pref.prefecture == 'Unspecified'){
@@ -298,10 +301,14 @@ function drawPrefectureTable(prefectures, totals) {
 
   dataTable.innerHTML = dataTable.innerHTML + unspecifiedRow
 
-  let totalStr = 'Total'
-  if(LANG == 'ja'){
-    totalStr = '計'
-  }
+  let totalStr
+   if(LANG == 'en'){
+       totalStr = 'Total'
+   }else if(LANG == 'si'){
+    totalStr = 'එකතුව'
+  }else if(LANG == 'ta'){
+      totalStr = 'மொத்தம்'
+    }
 
   dataTable.innerHTML = dataTable.innerHTML + "<tr class='totals'><td>" + totalStr + "</td><td>" + totals.confirmed + "</td><td>" + totals.recovered + "</td><td>" + totals.deceased + "</td></tr>"
 }
@@ -325,6 +332,8 @@ function drawHositalTable(data) {
         //   console.log(d)
        // TODO change to confirmed
        d.hospitalname = d.hospital.name
+       d.hospitalnamesi = d.hospital.name_si
+       d.hospitalnameta = d.hospital.name_ta
        d.testedtotal = d.cumulative_total
        d.treatmenttotal = d.treatment_total
        // TODO change to deceased
@@ -336,7 +345,8 @@ function drawHositalTable(data) {
       if (!d.hospitalname && !d.testedtotal && !d.treatmenttotal) {
           return
       }
-      dataTable.innerHTML = dataTable.innerHTML + "<tr><td class='hospitalname'>" + d.hospitalname + "</td><td>" +  d.testedtotal + "</td><td>" +  d.treatmenttotal + "</td></tr>"
+
+      dataTable.innerHTML = dataTable.innerHTML + '<tr><td  data-en="' + d.hospitalname +   '" data-si="' + d.hospitalnamesi +   '" data-ta="' +  d.hospitalnameta  +  '" class="hospitalname">' + d.hospitalname + '</td><td>' +  d.testedtotal + '</td><td>' +  d.treatmenttotal + '</td></tr>'
     })
 
 
@@ -491,7 +501,7 @@ function drawMapPrefectures(pageDraws) {
 function initDataTranslate() {
   // Handle language switching using data params
 
-  const selector = '[data-ja]'
+  const selector = '[data-si]'
   const parseNode = function(cb) {
     document.querySelectorAll(selector).forEach(cb)
   }
@@ -503,8 +513,11 @@ function initDataTranslate() {
 
   // Language selector event handler
   document.querySelectorAll('[data-lang-picker]').forEach(function(pick) {
+
     pick.addEventListener('click', function(e){
-      e.preventDefault()
+
+     e.preventDefault()
+
       LANG = e.target.dataset.langPicker
 
       // Toggle the html lang tags
@@ -524,12 +537,14 @@ function initDataTranslate() {
       if(document.getElementById('prefectures-table')){
         drawPrefectureTable(ddb.prefectures, ddb.totals)
       }
+      // Redraw the hospital table
+
 
       // Toggle the lang picker
       document.querySelectorAll('a[data-lang-picker]').forEach(function(el){
         el.style.display = 'inline'
       })
-      document.querySelector('a[data-lang-picker='+LANG+']').style.display = 'none'
+    //   document.querySelector('a[data-lang-picker='+LANG+']').style.display = 'none'
 
     })
   })

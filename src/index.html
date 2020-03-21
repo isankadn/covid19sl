@@ -44,21 +44,22 @@
 
 
   <header class="embed-hide">
-   <!-- <div class="lang-picker">
-      <a href="#" data-lang-picker='ja'>🇯🇵 日本語</a>
-      <a href="#" data-lang-picker='en' style="display:none">🇺🇸 English</a>
+   <div class="lang-picker">
+      <a href="#" data-lang-picker='si' style="">සිංහල</a> |
+      <a href="#" data-lang-picker='ta' style="">தமிழ்</a> |
+    <a href="#" data-lang-picker='en' style="">English</a>
     </div>
-    -->
 
-    <h1 data-ja="日本国内の新型コロナウイルス (COVID-19) 感染状況追跡">Sri Lanka COVID-19 Coronavirus Tracker</h1>
+
+    <h1 data-si="ශ්‍රී ලංකාවේ COVID-19 පැතිරීම පිළිබඳව නවතම තත්ත්වය" data-ta="இலங்கை COVID-19 கொரோனா நோய்க்கிருமி பற்றிய கண்காணிப்பு">Sri Lanka COVID-19 Coronavirus Tracker</h1>
     <div>
       <em>
-        View our <a href="https://docs.google.com/spreadsheets/d/1zIgPU0ZlYkiKaavYAUcHKgEP95jdaMaf9ljJgRqtog4/edit" target="_blank">live patient database</a>
+      <span data-si="යොමුවන්න &nbsp; " data-ta="பார்வையிட &nbsp; ">  View our </span><a data-si="රෝගීන් පිළිබඳව සජීවී දත්ත ගබඩාව" data-ta="நோயாளர்களின் விபரம் பற்றிய  நேரடி தரவுத்தளம்" href="https://docs.google.com/spreadsheets/d/1zIgPU0ZlYkiKaavYAUcHKgEP95jdaMaf9ljJgRqtog4/edit" target="_blank">live patient database</a>
       </em>
     </div>
     <div>
       <em>
-        <span data-ja="最終更新:">Last Updated:</span> <strong id="last-updated">-</strong>
+        <span data-si="අවසන් වරට යාවත්කාලීන කල වෙලාව: " data-ta="இறுதியாக புதுப்பிக்கப்பட்டது: ">Last Updated: </span> <strong id="last-updated">-</strong>
       </em>
     </div>
   </header>
@@ -67,56 +68,56 @@
     <div id="kpi-active" data-tippy-content="Confirmed cases - (Recovered + Deaths)" data-tippy-placement="bottom">
       <div class="diff">( +0 )</div>
       <div class="value"><div class="lds-dual-ring"></div></div>
-      <div class="label" data-ja="既存感染者数" data-en="Active ⓘ">Active ⓘ</div>
+      <div class="label" data-si="සක්‍රීය" data-ta="சிகிச்சையின் கீழ்" data-en="Active ⓘ">Active ⓘ</div>
     </div>
     <div id="kpi-critical">
       <div class="diff">( +0 )</div>
       <div class="value"><div class="lds-dual-ring"></div></div>
-      <div class="label" data-ja="重症者数">Critical</div>
+      <div class="label" data-si="බරපතල" data-ta="கடுமையானவை">Critical</div>
     </div>
     <div id="kpi-deceased">
       <div class="diff">( +0 )</div>
       <div class="value"><div class="lds-dual-ring"></div></div>
-      <div class="label" data-ja="死亡者数">Deaths</div>
+      <div class="label" data-si="මරණ" data-ta="இறப்புகள்">Deaths</div>
     </div>
     <div id="kpi-tested">
       <div class="diff">( +0 )</div>
       <div class="value-hositalized"><div class="lds-dual-ringa value"><span class="lds-dual-ring"> </span></div><span class="hositalized"><span class="lds-dual-ring"></span></span></div>
-      <div class="label" data-ja="検査実施人数">Tested <span>(Admitted)</span></div>
+      <div class="label" data-si="පරීක්ෂාවට ලක් වූ (රෝහල්ගත වූ)" data-ta="பரிசோதிக்கப்பட்டவை (அனுமதிக்கப்பட்டவை)">Tested <span>(Admitted)</span></div>
     </div>
     <div id="kpi-confirmed">
       <div class="diff">( +0 )</div>
       <div class="value"><div class="lds-dual-ring"></div></div>
-      <div class="label" data-ja="感染者数">Confirmed</div>
+      <div class="label" data-si="තහවුරු වූ" data-ta="உறுதி">Confirmed</div>
     </div>
     <div id="kpi-recovered">
       <div class="diff">( +0 )</div>
       <div class="value"><div class="lds-dual-ring"></div></div>
-      <div class="label" data-ja="回復者数">Recovered</div>
+      <div class="label" data-si="සුවය ලැබූ" data-ta="குணமடைந்தவை">Recovered</div>
     </div>
   </section>
 
 
   <a name="map"></a>
   <div class="center-offset">
-    <h4 data-ja="ウイルス感染マップ"><span class="embed-show">COVID-19 </span>Outbreak Map</h4>
+    <h4 data-si="පැතිර යාම පිලිබද වූ සිතියම" data-ta="திடீர்ப்பரம்பலின் வரைப்படம்"><span class="embed-show">COVID-19 </span>Outbreak Map</h4>
   </div>
   <section id="map-legend">
-    <div><span class="one">▉</span> <span data-ja="1-10 件">1-10 cases</span></div>
-    <div><span class="two">▉</span> <span data-ja="11-25 件">11-25 cases</span></div>
-    <div><span class="three">▉</span> <span data-ja="26-50 件">26-50 cases</span></div>
-    <div><span class="four">▉</span> <span data-ja="51+ 件">51+ cases</span></div>
+    <div><span class="one">▉</span> <span data-si="1-10 රෝගීන්" data-ta="1-10 நோயாளர்கள்">1-10 cases</span></div>
+    <div><span class="two">▉</span> <span data-si="11-25 රෝගීන්" data-ta="11-25 நோயாளர்கள்" >11-25 cases</span></div>
+    <div><span class="three">▉</span> <span data-si="26-50 රෝගීන්" data-ta="26-50 நோயாளர்கள்" >26-50 cases</span></div>
+    <div><span class="four">▉</span> <span data-si="51+ රෝගීන්" data-ta="51+ நோயாளர்கள்" >51+ cases</span></div>
   </section>
   <div id="map-container"></div>
-  <h5 class="embed-show">powered by <a href="https://covidsl.com" target="_blank">CovidSL.com</a></h5>
+  <h5 class="embed-show" data-si="" data-ta=""  >powered by <a href="https://covidsl.com" target="_blank">CovidSL.com</a></h5>
 
   <section id="chart-legend-container" class="embed-hide">
-    <h4 data-ja="ウイルス感染の拡散傾向">Outbreak Spread Trend</h4>
+    <h4 data-si="පැතිරයාමේ ප්‍රවණතාවය" data-ta="நோய்ப்பரம்பலின் போக்கு">Outbreak Spread Trend</h4>
     <div id="chart-legend">
-      <div><span class="one">▉</span> <span data-ja="感染者数">Cases</span></div>
-      <div><span class="two">▉</span> <span data-ja="回復者数">Recovered</span></div>
-      <div><span class="three">▉</span> <span data-ja="死亡者数">Deaths</span></div>
-      <div><span class="four">▉</span> <span data-ja="毎日の増加">Daily Increase</span></div>
+      <div><span class="one">▉</span> <span data-si="රෝගීන්" data-ta="நோயாளர்கள்">Cases</span></div>
+      <div><span class="two">▉</span> <span data-si="සුවය ලැබූ රෝගීන්" data-ta="குணமடைந்தவை">Recovered</span></div>
+      <div><span class="three">▉</span> <span data-si="මරණ" data-ta="இறப்புகள்" >Deaths</span></div>
+      <div><span class="four">▉</span> <span data-si="දිනපතා වැඩි වීම" data-ta="தினசரி அதிகரிப்பு" >Daily Increase</span></div>
     </div>
   </section>
 
@@ -125,14 +126,14 @@
   </section>
 
   <section class="embed-hide">
-    <h4 data-ja="都道府県ごとのデータ">District Data</h4>
+    <h4 data-si="දිස්ත්‍රික්ක මට්ටමේ දත්ත" data-ta="மாவட்ட ரீதியான தரவு">District Data</h4>
     <table id="prefectures-table">
       <thead>
         <tr>
-          <th data-ja="都道府県">Prefecture</th>
-          <th data-ja="感染者数">Cases</th>
-          <th data-ja="回復者数">Recovered</th>
-          <th data-ja="死亡者数">Deaths</th>
+          <th data-si="දිස්ත්‍රික්කය" data-ta="மாவட்டம்">District</th>
+          <th data-si="රෝගීන්" data-ta="நோயாளர்கள்">Cases</th>
+          <th data-si="සුවය ලැබූ රෝගීන්" data-ta="குணமடைந்தவை">Recovered</th>
+          <th data-si="මරණ" data-ta="இறப்புகள்">Deaths</th>
         </tr>
       </thead>
       <tbody>
@@ -142,13 +143,13 @@
   </section>
 
 <section class="embed-hide">
-    <h4 data-ja="都道府県ごとのデータ">Hospital Data (directly from Health Promotion Bureau)</h4>
+    <h4 data-si="රෝහල් සම්බන්ධයෙන් වූ දත්ත (මූලාශ්‍රය : සෞඛ්‍ය ප්‍රවර්ධන කාර්යාංශය)" data-ta="மருத்துவமனைத் தரவு (சுகாதார மேம்பாட்டு பணியகத்திலிருந்து நேரடியாக)">Hospital Data (directly from Health Promotion Bureau)</h4>
     <table id="hospital-table">
         <thead>
             <tr>
-                <th data-ja="都道府県">Hospital Name</th>
-                <th data-ja="感染者数">Tested (Total)*</th>
-                <th data-ja="回復者数">Treatment (Total)**</th>
+                <th data-si="රෝහල" data-ta="மருத்துவமனையின் பெயர்">Hospital</th>
+                <th data-si="පරීක්ෂාවට ලක් වූ (එකතුව)" data-ta="பரிசோதிக்கப்பட்டவை (மொத்தம்)">Tested (Total)*</th>
+                <th data-si="ප්‍රතිකාර ලැබුවන් (එකතුව)" data-ta="சிகிச்சையளிக்கப்பட்டவை (மொத்தம்)" >Treatment (Total)**</th>
             </tr>
         </thead>
         <tbody>
@@ -160,49 +161,49 @@
         </tbody>
     </table>
     <br />
-<p class="note-hospital">* Tested = Being tested <br />
-** Treatment = Admitted to hospitals </p>
+<p  data-si="* පරීක්ෂාවට ලක් වූ"  data-ta="* பரிசோதிக்கப்பட்டவை" class="note-hospital">* Tested = Being tested </p>
+<p data-si="** ප්‍රතිකාර ලැබුවන් (එකතුව)" data-ta="**சிகிச்சையளிக்கப்பட்டவை (மொத்தம்)" class="note-hospital">** Treatment = Admitted to hospitals </p>
     </section>
 
     <section id="helpful-links" class="embed-hide">
         <a name="links"></a>
-        <h4 data-ja="有益な情報源">Helpful Links</h4>
+        <h4 data-si="වැදගත් සබැඳියන්" data-ta="பயனுள்ள இணைப்புகள்">Helpful Links</h4>
         <ul>
             <li>
-                Health Promotion Bureau<br />
+                <span data-si="සෞඛ්‍යය ප්‍රවර්ධන කාර්යාංශය" data-ta="சுகாதார மேம்பாட்டு பணியகம்">Health Promotion Bureau</span><br />
                 <a href="http://hpb.health.gov.lk/covid-19" target="_blank">http://hpb.health.gov.lk/covid-19</a>
             </li>
             <li>
-               WHO Sri Lanka<br />
+            <span data-si="ලෝක සෞඛ්‍යය සංවිධානය - ශ්‍රී ලංකාව" data-ta="உலக சுகாதார அமைப்பு - இலங்கை"> WHO Sri Lanka</span><br />
                 <a href=" https://www.who.int/srilanka/covid-19" target="_blank">https://www.who.int/srilanka/covid-19</a>
             </li>
             <li>
-                Quarantine Unit<br />
+                <span data-si="නිරෝධායන ඒකකය" data-ta="தனிமைப்படுத்தல் பிரிவு">Quarantine Unit</span><br />
                 <a
                     href="http://www.quarantine.health.gov.lk/index.php?lang=en" target="_blank">http://www.quarantine.health.gov.lk/index.php?lang=en</a>
             </li>
             <li>
-                WHO information about the virus<br />
+                <span data-si="වෛරසය පිළිබඳව තතු - ලෝක සෞඛ්‍යය සංවිධානය" data-ta="உலக சுகாதார அமைப்பு - நோய்க்கிருமி பற்றிய தகவல்">WHO information about the virus</span><br />
                 <a
                     href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019" target="_blank">https://www.who.int/emergencies/diseases/novel-coronavirus-2019</a>
             </li>
             <li>
-                WHO South East Asia <br />
+            <span data-si="ලෝක සෞඛ්‍යය සංවිධානය - ගිනිකොණදිග ආසියාව" data-ta="உலக சுகாதார அமைப்பு - தென்கிழக்கு ஆசியா"> WHO South East Asia </span><br />
                 <a href="https://www.who.int/southeastasia" target="_blank">https://www.who.int/southeastasia</a>
             </li>
 
         </ul>
 
         <br />
-        <h4 data-ja="一次情報源">Primary Data Sources</h4>
+        <h4 data-si="ප්‍රාථමික දත්ත ප්‍රභවයන්" data-ta="முதன்மை தரவு மூலங்கள்">Primary Data Sources</h4>
         <ul>
-            <li>Epidemiology Unit<br /><a href="http://www.epid.gov.lk/web/" target="_blank">http://www.epid.gov.lk/web/</a></li>
-            <li>Health Promotion Bureau<br /> <a href="http://hpb.health.gov.lk/covid-19" target="_blank">http://hpb.health.gov.lk/covid-19</a>
+            <li><span data-si="වසංගත රෝග විද්‍යා අංශය" data-ta="தொற்றுநோய்ப் பிரிவு">Epidemiology Unit</span><br /><a href="http://www.epid.gov.lk/web/" target="_blank">http://www.epid.gov.lk/web/</a></li>
+            <li><span data-si="සෞඛ්‍යය ප්‍රවර්ධන කාර්යාංශය" data-ta="சுகாதார மேம்பாட்டு பணியகம்">Health Promotion Bureau</span><br /> <a href="http://hpb.health.gov.lk/covid-19" target="_blank">http://hpb.health.gov.lk/covid-19</a>
             </li>
-            <li>Department Of Government Information<br /><a href="https://www.dgi.gov.lk/" target="_blank">https://www.dgi.gov.lk/</a></li>
+            <li><span data-si="රාජ්‍ය තොරතුරු දෙපාර්තමේන්තුව" data-ta="அரச தகவல் திணைக்களம்">Department Of Government Information</span><br /><a href="https://www.dgi.gov.lk/" target="_blank">https://www.dgi.gov.lk/</a></li>
         </ul>
 <br />
-        <h4 data-ja="一次情報源">Embed to your Site</h4>
+        <h4 data-si="ඔබගේ වෙබ් අඩවියට යාගත කිරීමට" data-ta="உங்கள் தளத்திற்குள் உள்ளீடு செய்வதற்கு">Embed to your Site</h4>
         <ul>
             <li><a href="http://covidsl.com/embed.html" target="_blank">http://covidsl.com/embed.html</a></li>
             </li>
@@ -212,15 +213,21 @@
     </section>
 
     <footer>
-        <p class="footer-credit">
+        <p data-si="විමසීම් : පියුමල් මල්ලව ආරච්චි (+94 776 124 256 | dpiumal[at]gmail.com)" data-ta="தொடர்பு: பியுமல் மல்லவ ஆராச்சி (+94 776 124 256 | dpiumal[at]gmail.com)" class="footer-credit">
             Contact: Piumal Mallawa Arachchi (+94 776 124 256 | dpiumal[at]gmail.com)
         </p>
         <p class="footer-credit">
-            Built and maintained by <a href="https://twitter.com/isankadn" target="_blank">Isanka Wijerathne</a> using codes of <a href="https://github.com/reustle/covid19japan" target="_blank">covid19japan</a> repository.
+           <span data-si="සැකසුම් කටයුතු සහ යාවත්කාලීන කිරීම: " data-ta="கட்டமைப்பு மற்றும் பராமரிப்பு: " > Built and maintained by </span>
+           <a data-si="ඉසංක විජේරත්න."  data-ta="இசங்க விஜேரத்ன." href="https://twitter.com/isankadn" target="_blank">Isanka Wijerathne</a>
+           <span data-si=" " data-ta=" ">using codes of </span>
+           <a data-si=" " data-ta=" " href="https://github.com/reustle/covid19japan" target="_blank">covid19japan</a>
+           <span data-si=" " data-ta=" ">repository. </span>
         </p>
 
         <p class="footer-credit">
-            Thank you to <a href="https://www.mapbox.com/" target="_blank"> Mapbox </a>for sponsoring our map.
+            <span  data-si="සිතියම් සඳහා දායකත්වය දැක්වූ " data-ta="எங்கள் வரைபடத்துக்கு  பங்களிப்பு செய்த " >Thank you to </span>
+            <a href="https://www.mapbox.com/" target="_blank"> Mapbox </a>
+            <span  data-si=" වෙත අපගේ විශේෂ ස්තූතිය." data-ta=" நிறுவனத்திற்கு நன்றி"> for sponsoring our map.</span>
         </p>
     </footer>
 
