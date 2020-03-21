@@ -2,9 +2,9 @@
 const express = require('express')
 
 const app = express()
-app.use(express.static('docs', { dotfiles: 'allow' }))
+app.use(express.static('docs'))
 
-let port = process.env.PORT || 4000
+let port = process.env.PORT || 80
 
 var listener = app.listen(port, function () {
   console.log('listening on port ' + listener.address().port);
