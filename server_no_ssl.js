@@ -9,12 +9,11 @@ const compression = require('compression')
 const bodyParser = require('body-parser')
 
 
-app.use(compression()); // GZIP http sent files for performance
+// app.use(compression()); // GZIP http sent files for performance
 app.use(express.static('docs', { dotfiles: 'allow' }))
-app.use( bodyParser.json() );       // to support JSON-encoded bodies
+// app.use( bodyParser.json() );       // to support JSON-encoded bodies
 
 app.listen(80)
-
 
 https
     .createServer(
