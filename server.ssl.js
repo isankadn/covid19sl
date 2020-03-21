@@ -15,6 +15,20 @@ app.use(express.static('docs', { dotfiles: 'allow' }))
 
 app.listen(80)
 
+// https
+//     .createServer(
+//         {
+//             key: fs.readFileSync(
+//                 '/etc/letsencrypt/live/covidsl.com/fullchain.pem'
+//             ),
+//             cert: fs.readFileSync(
+//                 '/etc/letsencrypt/live/covidsl.com/privkey.pem'
+//             )
+//         },
+//         app
+//     )
+//     .listen(443)
+
 https
     .createServer(
         {
@@ -27,5 +41,6 @@ https
         },
         app
     )
-    .listen(443)
-
+    .listen(app.get('port'), function() {
+        console.log('Express SSL server listening on port ' + app.get('port'))
+    })
