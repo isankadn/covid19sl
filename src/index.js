@@ -528,8 +528,11 @@ function initDataTranslate() {
 
       // Update the map
       map.getStyle().layers.forEach(function(thisLayer){
+
         if(thisLayer.type == 'symbol'){
+            // console.log(LANG)
           map.setLayoutProperty(thisLayer.id, 'text-field', ['get','name_' + LANG])
+        //    console.log(thisLayer.id)
         }
       })
 
