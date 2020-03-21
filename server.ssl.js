@@ -13,44 +13,22 @@ const fs = require('fs')
 app.use(express.static('docs', { dotfiles: 'allow' }))
 // app.use( bodyParser.json() );       // to support JSON-encoded bodies
 
-// app.listen(80)
+app.listen(80)
 
-// https
-//     .createServer(
-//         {
-//             key: fs.readFileSync(
-//                 '/etc/letsencrypt/live/covidsl.com/fullchain.pem',
-//                 'utf8'
-//             ),
-//             cert: fs.readFileSync(
-//                 '/etc/letsencrypt/live/covidsl.com/privkey.pem',
-//                 'utf8'
-//             )
-//         },
-//         app
-//     )
-//     .listen(443)
+https
+    .createServer(
+        {
+            key: fs.readFileSync(
+                '/etc/letsencrypt/live/covidsl.com/privkey.pem',
+                'utf8'
+            ),
+            cert: fs.readFileSync(
+                '/etc/letsencrypt/live/covidsl.com/fullchain.pem',
+                'utf8'
+            ),
+            ca: fs.readFileSync('/etc/letsencrypt/live/covidsl.com/chain.pem')
+        },
+        app
+    )
+    .listen(443)
 
-
-    https
-        .createServer(
-            {
-                key: fs.readFileSync(
-                    '/etc/letsencrypt/live/covidsl.com/privkey.pem',
-                    'utf8'
-                ),
-                cert: fs.readFileSync(
-                    '/etc/letsencrypt/live/covidsl.com/fullchain.pem',
-                    'utf8'
-                ),
-                ca: fs.readFileSync(
-                    '/etc/letsencrypt/live/covidsl.com/chain.pem'
-                )
-            },
-            app
-        )
-        .listen(app.get('port'), function() {
-            console.log(
-                'Express SSL server listening on port ' + app.get('port')
-            )
-        })
