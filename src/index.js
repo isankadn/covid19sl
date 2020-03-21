@@ -12,7 +12,7 @@ const PAGE_TITLE = 'Coronavirus Disease (COVID-19) Sri Lanka Tracker'
 let LANG = 'en'
 //https://docs.google.com/spreadsheets/d/e/2PACX-1vSCRHzTX82QIyeYRwyzEdLsQZN7uq8Zqf5D1lH5g99qBbOvyQQf0xJit4WvQe2xFyzee3UrmXEkZkLa/pub?output=csv
 // Global vars
-const JSON_PATH_HPB = 'http://hpb.health.gov.lk/api/get-current-statistical'
+const JSON_PATH_HPB = 'https://hpb.health.gov.lk/api/get-current-statistical'
 
 
 let ddb = {
