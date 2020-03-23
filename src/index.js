@@ -181,73 +181,136 @@ function drawTrendChart(sheetTrend) {
   Chart.defaults.global.defaultFontColor = 'rgb(0,10,18)'
 
   var chart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: labelSet,
-      datasets: [
-        {
-          label: 'Deceased',
-          borderColor: COLOR_DECEASED,
-          backgroundColor: COLOR_DECEASED,
-          fill: false,
-          data: deceasedSet
-        },
-        {
-          label: 'Recovered',
-          borderColor: COLOR_RECOVERED,
-          backgroundColor: COLOR_RECOVERED,
-          fill: false,
-          data: recoveredSet
-        },
-        {
-          label: 'Confirmed',
-          borderColor: COLOR_CONFIRMED,
-          backgroundColor: COLOR_CONFIRMED,
-          fill: false,
-          data: confirmedSet
-        },
-        {
-          label: 'Daily Increase',
-          borderColor: COLOR_INCREASE,
-          backgroundColor: COLOR_INCREASE,
-          fill: false,
-          data: dailyIncreaseSet
-        }
-      ]
-    },
-    options: {
-      maintainAspectRatio: false,
-      responsive: true,
-      elements: {
-        line: {
-          tension: 0.1
-        }
+      type: 'line',
+      data: {
+          labels: labelSet,
+          datasets: [
+              {
+                  label: 'Deceased',
+                  borderColor: COLOR_DECEASED,
+                  backgroundColor: COLOR_DECEASED,
+                  fill: false,
+                  data: deceasedSet
+              },
+              {
+                  label: 'Recovered',
+                  borderColor: COLOR_RECOVERED,
+                  backgroundColor: COLOR_RECOVERED,
+                  fill: false,
+                  data: recoveredSet
+              },
+              {
+                  label: 'Confirmed',
+                  borderColor: COLOR_CONFIRMED,
+                  backgroundColor: COLOR_CONFIRMED,
+                  fill: false,
+                  data: confirmedSet
+              },
+              {
+                  label: 'Daily Increase',
+                  borderColor: COLOR_INCREASE,
+                  backgroundColor: COLOR_INCREASE,
+                  fill: false,
+                  data: dailyIncreaseSet
+              }
+          ]
       },
-      legend: {
-        display: false,
-      },
-      scales: {
-        xAxes: [{
-          type: 'time',
-          time: {
-            parser: TIME_FORMAT,
-            round: 'day',
-            tooltipFormat: 'll'
+      options: {
+          maintainAspectRatio: false,
+          responsive: true,
+          elements: {
+              line: {
+                  tension: 0.1
+              }
           },
-          scaleLabel: {
-            display: true,
-            labelString: 'Date'
+          legend: {
+              display: false,
+            reverse:true,
+              fullWidth: true
+          },
+          scales: {
+              xAxes: [
+                  {
+                      type: 'time',
+                      time: {
+                          parser: TIME_FORMAT,
+                          round: 'day',
+                          tooltipFormat: 'll'
+                      },
+                      scaleLabel: {
+                          display: true,
+                          labelString: 'Date'
+                      }
+                  }
+              ],
+              yAxes: [
+                  {
+                      scaleLabel: {
+                          display: true,
+                          labelString: 'Cases'
+                      }
+                  }
+              ]
           }
-        }],
-        yAxes: [{
-          scaleLabel: {
-            display: true,
-            labelString: 'Cases'
-          }
-        }]
       }
-    }
-  });
+  })
+
+  var ctx2 = document.getElementById('trend-chart-daily-increase').getContext('2d')
+  var chart2 = new Chart(ctx2, {
+      type: 'line',
+      data: {
+          labels: labelSet,
+          datasets: [
+
+              {
+                  label: 'Daily Increase',
+                  borderColor: COLOR_INCREASE,
+                  backgroundColor: COLOR_INCREASE,
+                  fill: false,
+                  data: dailyIncreaseSet
+              }
+          ]
+      },
+      options: {
+          maintainAspectRatio: false,
+          responsive: true,
+          elements: {
+              line: {
+                  tension: 0.1
+              }
+          },
+          legend: {
+              display: false,
+              reverse: true,
+              fullWidth: true
+          },
+          scales: {
+              xAxes: [
+                  {
+                      type: 'time',
+                      time: {
+                          parser: TIME_FORMAT,
+                          round: 'day',
+                          tooltipFormat: 'll'
+                      },
+                      scaleLabel: {
+                          display: true,
+                          labelString: 'Date'
+                      }
+                  }
+              ],
+              yAxes: [
+                  {
+                      scaleLabel: {
+                          display: true,
+                          labelString: 'Cases'
+                      }
+                  }
+              ]
+          }
+      }
+  })
+
 }
 
 
