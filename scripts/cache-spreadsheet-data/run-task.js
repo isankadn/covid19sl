@@ -1,7 +1,7 @@
 
 const script = require("./cache-sheet.js");
 
-const UPLOAD_INTERVAL_SEC = 1 * 5;
+const UPLOAD_INTERVAL_SEC = 60 * 5;
 
 async function main() {
     await script.setup();

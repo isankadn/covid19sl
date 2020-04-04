@@ -1,7 +1,7 @@
 const tippy = require('tippy.js').default
 // mapboxgl.accessToken ='pk.eyJ1IjoiaXNhbmthZG4iLCJhIjoiY2s3dmIxYmxhMGJ2OTNmbzJnZjFxcmF6ZyJ9.Pgj6f8H7NpCRI1fNOK3MfA'
 mapboxgl.accessToken ='pk.eyJ1IjoiaXNhbmthZG4iLCJhIjoiY2s3eGI3ams2MDFsMTNmcjRsdnh4ZTNpOSJ9.C7esI-qqpgWXdPbZe04aOw'
-const PREFECTURE_JSON_PATH = 'static/prefectures.geojson'
+const PREFECTURE_JSON_PATH = 'https://isankadn.github.io/static/prefectures.geojson'
 const JSON_PATH = 'https://covid-19sl.s3-ap-northeast-1.amazonaws.com/data.json'
 const TIME_FORMAT = 'YYYY-MM-DD'
 const COLOR_CONFIRMED = 'rgb(244,67,54)'
@@ -174,7 +174,7 @@ function drawTrendChart(sheetTrend) {
     prevConfirmed = parseInt(trendData.confirmed)
     lastUpdated = trendData.date
   })
-
+//   dailyIncreaseSet.splice(-1, 1)
   var ctx = document.getElementById('trend-chart').getContext('2d')
   Chart.defaults.global.defaultFontFamily = "'Open Sans', helvetica, sans-serif"
   Chart.defaults.global.defaultFontSize = 16
