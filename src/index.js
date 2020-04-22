@@ -4,10 +4,11 @@ mapboxgl.accessToken ='pk.eyJ1IjoiaXNhbmthZG4iLCJhIjoiY2s3eGI3ams2MDFsMTNmcjRsdn
 const PREFECTURE_JSON_PATH = 'https://isankadn.github.io/static/prefectures.geojson'
 const JSON_PATH = 'https://covid-19sl.s3-ap-northeast-1.amazonaws.com/data.json'
 const TIME_FORMAT = 'YYYY-MM-DD'
-const COLOR_CONFIRMED = 'rgb(244,67,54)'
-const COLOR_RECOVERED = 'rgb(4,148,39)'
+const COLOR_CONFIRMED = 'rgb(244,67,54, 0.3)'
+const COLOR_ACTIVE = 'rgb(244,67,54)'
+const COLOR_RECOVERED = 'rgb(4,148,39, 0.7)'
 const COLOR_DECEASED = 'rgb(55,71,79)'
-const COLOR_INCREASE = 'rgb(163,172,191)'
+const COLOR_INCREASE = 'rgb(163,172,191, 0.7)'
 const PAGE_TITLE = 'Coronavirus Disease (COVID-19) Sri Lanka Tracker'
 let LANG = 'en'
 //https://docs.google.com/spreadsheets/d/e/2PACX-1vSCRHzTX82QIyeYRwyzEdLsQZN7uq8Zqf5D1lH5g99qBbOvyQQf0xJit4WvQe2xFyzee3UrmXEkZkLa/pub?output=csv
@@ -23,7 +24,9 @@ let ddb = {
     recovered: 0,
     deceased: 0,
     tested: 0,
-    critical: 0
+    critical: 0,
+
+
   },
   totalsDiff: {
     confirmed: 0,
@@ -82,7 +85,8 @@ function calculateTotals(daily) {
     recovered: 0,
     deceased: 0,
     critical: 0,
-    tested: 0
+    tested: 0,
+
   }
   let totalsDiff = {
     confirmed: 1,
@@ -150,7 +154,10 @@ function drawTrendChart(sheetTrend) {
   let recoveredSet = []
   let deceasedSet = []
   let dailyIncreaseSet = []
+  let dailyRecoveredSet = []
+  let activeSet = []
 
+  let prevRecoveredSet = -1
   let prevConfirmed = -1
   sheetTrend.map(function(trendData){
     labelSet.push(new Date(trendData.date))
@@ -170,10 +177,21 @@ function drawTrendChart(sheetTrend) {
       x: new Date(trendData.date),
       y: prevConfirmed === -1 ? 0 : parseInt(trendData.confirmed) - prevConfirmed
     })
+     dailyRecoveredSet.push({
+      x: new Date(trendData.date),
+      y: prevRecoveredSet === -1 ? 0 : parseInt(trendData.recovered) - prevRecoveredSet
+    })
 
+    activeSet.push({
+        x: new Date(trendData.date),
+        y: parseInt(trendData.confirmed - trendData.recovered - trendData.deceased),
+    })
+
+    prevRecoveredSet = parseInt(trendData.recovered)
     prevConfirmed = parseInt(trendData.confirmed)
     lastUpdated = trendData.date
   })
+//   console.log(activeSet)
 //   dailyIncreaseSet.splice(-1, 1)
   var ctx = document.getElementById('trend-chart').getContext('2d')
   Chart.defaults.global.defaultFontFamily = "'Open Sans', helvetica, sans-serif"
@@ -183,132 +201,232 @@ function drawTrendChart(sheetTrend) {
   var chart = new Chart(ctx, {
       type: 'line',
       data: {
-          labels: labelSet,
+          labels: labelSet.slice(1),
           datasets: [
               {
                   label: 'Deceased',
                   borderColor: COLOR_DECEASED,
                   backgroundColor: COLOR_DECEASED,
                   fill: false,
-                  data: deceasedSet
+                  data: deceasedSet.slice(1),
               },
               {
                   label: 'Recovered',
                   borderColor: COLOR_RECOVERED,
                   backgroundColor: COLOR_RECOVERED,
                   fill: false,
-                  data: recoveredSet
+                  data: recoveredSet.slice(1),
               },
               {
                   label: 'Confirmed',
                   borderColor: COLOR_CONFIRMED,
                   backgroundColor: COLOR_CONFIRMED,
                   fill: false,
-                  data: confirmedSet
+                  data: confirmedSet.slice(1),
               },
               {
-                  label: 'Daily Increase',
-                  borderColor: COLOR_INCREASE,
-                  backgroundColor: COLOR_INCREASE,
+                  label: 'Active',
+                  borderColor: COLOR_ACTIVE,
+                  backgroundColor: COLOR_ACTIVE,
                   fill: false,
-                  data: dailyIncreaseSet
-              }
-          ]
+                  data: activeSet.slice(1),
+              },
+              //   {
+              //       label: 'Daily Increase',
+              //       borderColor: COLOR_INCREASE,
+              //       backgroundColor: COLOR_INCREASE,
+              //       fill: false,
+              //       data: dailyIncreaseSet.slice(1),
+              //   },
+          ],
       },
       options: {
-          maintainAspectRatio: false,
+          tooltips: {
+              mode: 'index',
+          },
+          maintainAspectRatio: true,
           responsive: true,
           elements: {
               line: {
-                  tension: 0.1
-              }
-          },
-          legend: {
-              display: false,
-            reverse:true,
-              fullWidth: true
-          },
-          scales: {
-              xAxes: [
-                  {
-                      type: 'time',
-                      time: {
-                          parser: TIME_FORMAT,
-                          round: 'day',
-                          tooltipFormat: 'll'
-                      },
-                      scaleLabel: {
-                          display: true,
-                          labelString: 'Date'
-                      }
-                  }
-              ],
-              yAxes: [
-                  {
-                      scaleLabel: {
-                          display: true,
-                          labelString: 'Cases'
-                      }
-                  }
-              ]
-          }
-      }
-  })
-
-  var ctx2 = document.getElementById('trend-chart-daily-increase').getContext('2d')
-  var chart2 = new Chart(ctx2, {
-      type: 'line',
-      data: {
-          labels: labelSet,
-          datasets: [
-
-              {
-                  label: 'Daily Increase',
-                  borderColor: COLOR_INCREASE,
-                  backgroundColor: COLOR_INCREASE,
-                  fill: false,
-                  data: dailyIncreaseSet
-              }
-          ]
-      },
-      options: {
-          maintainAspectRatio: false,
-          responsive: true,
-          elements: {
-              line: {
-                  tension: 0.1
-              }
+                  tension: 0.1,
+              },
           },
           legend: {
               display: false,
               reverse: true,
-              fullWidth: true
+              fullWidth: true,
           },
           scales: {
               xAxes: [
                   {
+                      display: false,
                       type: 'time',
                       time: {
                           parser: TIME_FORMAT,
                           round: 'day',
-                          tooltipFormat: 'll'
+                          tooltipFormat: 'll',
                       },
                       scaleLabel: {
-                          display: true,
-                          labelString: 'Date'
-                      }
-                  }
+                          display: false,
+                          labelString: 'Date',
+                      },
+                  },
+                  {
+                      ticks: {
+                          fontSize: 8,
+                          minRotation: 90,
+                          maxRotation: 90,
+                          callback: function (value, index, values) {
+                              return new moment(value).format('DD MM')
+                          },
+                      },
+                  },
               ],
               yAxes: [
                   {
+                      ticks: {
+                          minor: {
+                              fontSize: Math.round(ctx.canvas.clientWidth / 32),
+                          },
+                      },
                       scaleLabel: {
-                          display: true,
-                          labelString: 'Cases'
-                      }
-                  }
-              ]
-          }
-      }
+                          fontSize: Math.round(ctx.canvas.clientWidth / 32),
+                          display: false,
+                          labelString: 'Cases',
+                      },
+                  },
+              ],
+          },
+      },
+  })
+
+  var ctx2 = document.getElementById('trend-chart-daily-increase').getContext('2d')
+
+
+
+  var chart2 = new Chart(ctx2, {
+      type: 'bar',
+      data: {
+          labels: labelSet.slice(1),
+          datasets: [
+              {
+                  label: 'Daily Increase',
+                  borderWidth: 1,
+                  borderColor: 'rgb(163,172,191, 1)',
+                  backgroundColor: COLOR_INCREASE,
+                  fill: false,
+                  data: dailyIncreaseSet.slice(1),
+              },
+              {
+                  label: 'Daily Recovered',
+                  borderWidth: 1,
+                  borderColor: 'rgb(4,148,39, 1)',
+                  backgroundColor: COLOR_RECOVERED,
+                  fill: true,
+                  data: dailyRecoveredSet.slice(1),
+              },
+          ],
+      },
+      options: {
+          tooltips: {
+              mode: 'index',
+          },
+          maintainAspectRatio: true,
+          responsive: true,
+          elements: {
+              line: {
+                  tension: 0.1,
+              },
+          },
+          legend: {
+              display: true,
+              reverse: true,
+              fullWidth: true,
+              labels: {
+                  fontSize: Math.round(ctx2.canvas.clientWidth / 32),
+              },
+          },
+          scales: {
+              xAxes: [
+                  {
+                      stacked: true,
+                      type: 'time',
+                      display: false,
+                      time: {
+                          unit: 'day',
+                          parser: TIME_FORMAT,
+                          round: 'day',
+                          tooltipFormat: 'll',
+                      },
+                      scaleLabel: {
+                          display: false,
+                          labelString: 'Date',
+                      },
+                  },
+
+                  {
+                      ticks: {
+                          fontSize: 8,
+                          minRotation: 90,
+                          maxRotation: 90,
+                          callback: function (value, index, values) {
+                              return new moment(value).format('DD MM')
+                          },
+                      },
+                  },
+              ],
+
+              yAxes: [
+                  {
+                      ticks: {
+                          minor: {
+                              fontSize: Math.round(
+                                  ctx2.canvas.clientWidth / 32
+                              ),
+                          },
+                      },
+
+                      scaleLabel: {
+                          fontSize: Math.round(ctx2.canvas.clientWidth / 32),
+                          display: false,
+                          labelString: 'Cases',
+                      },
+                  },
+              ],
+          },
+
+          animation: {
+              duration: 1,
+              onComplete: function () {
+                  var chartInstance = this.chart
+
+                  ctx = chartInstance.ctx
+                  this.chart.options.scales.yAxes[0].ticks.minor.fontSize =
+                      this.chart.width / 64
+
+                  ctx.font = Chart.helpers.fontString(
+                      Math.round(this.chart.width / 64),
+                      Chart.defaults.global.defaultFontStyle,
+                      Chart.defaults.global.defaultFontFamily
+                  )
+
+                  ctx.textAlign = 'center'
+                  ctx.textBaseline = 'bottom'
+
+                  this.data.datasets.forEach(function (dataset, i) {
+                      var meta = chartInstance.controller.getDatasetMeta(i)
+
+                      meta.data.forEach(function (bar, index) {
+                          if (dataset.data[index].y > 0) {
+                              var data = dataset.data[index].y
+
+                              ctx.fillText(data, bar._model.x, bar._model.y)
+                          }
+                      })
+                  })
+              },
+          },
+      },
   })
 
 }
@@ -440,6 +558,7 @@ function drawKpis(totals, totalsDiff) {
   setKpiDiff('tested', totalsDiff.tested)
   setKpi('active', (totals.confirmed - totals.recovered) - totals.deceased)
   setKpiDiff('active', (totalsDiff.confirmed - totalsDiff.recovered) - totalsDiff.deceased)
+  setKpi('deceasedpercentage', (totals.deceased * 100 / totals.confirmed).toFixed(2))
 
 }
 

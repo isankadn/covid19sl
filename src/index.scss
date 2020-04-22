@@ -283,8 +283,9 @@ h1 {
 }
 
 #trend-chart-container {
-  height: 250px;
+  min-height: 300px;
   padding: 0px 10px;
+  overflow-x: auto;
 }
 #chart-legend-container {
   padding-bottom: 10px;
@@ -300,7 +301,7 @@ h1 {
     display: inline-block;
   }
   span.one {
-    color: rgb(244,67,54);
+    color: transparentize(rgb(244,67,54), 0.3);
   }
   span.two {
     color: rgb(3, 148, 39);
@@ -309,7 +310,7 @@ h1 {
     color: rgb(55,71,79);
   }
   span.four {
-    color: rgb(163,172,191);
+    color: rgb(244,67,54);
   }
 }
 #hospital-table,
@@ -376,10 +377,10 @@ footer {
 .lds-dual-ring:after {
   content: " ";
   display: block;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  border: 4px solid #f44336;
+  width: 10px;
+  height: 10px;
+  border-radius: 90%;
+  border: 2px solid #f44336;
   border-color: #f44336 transparent #f44336 transparent;
   animation: lds-dual-ring 1.6s linear infinite;
 }
@@ -397,17 +398,28 @@ body.embed {
   .embed-show { display: block; }
   span.embed-show { display: inline; }
 }
-
+.value-deceasedpercentage,
 .value-hositalized {
     display: inline-flex;
 }
 .hositalized{
         color: #868686;
 }
+.deceasedpercentage .value,
+.deceasedpercentage {
+
+     font-size: 0.8rem !important;
+}
+
 
 .twosl {
     float: left;
 }
 .red_color{
     color: #f44334;
+}
+
+.chartjs-render-monitor {
+min-width: 500px;
+    height: auto !important;
 }
