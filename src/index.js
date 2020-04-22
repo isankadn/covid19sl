@@ -762,7 +762,7 @@ window.onload = function(){
   var pageDraws = 0
   var styleLoaded = false
   var jsonData = undefined
-  const FIVE_MINUTES_IN_MS = 3000
+  const FIVE_MINUTES_IN_MS = 300000
 
   function whenMapAndDataReady(){
     // This runs drawMapPref only when
