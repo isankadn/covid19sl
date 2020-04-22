@@ -102,10 +102,10 @@
     </div>
   </section>
 
-
+<section id="map-container-outer" class="embed-hide">
   <a name="map"></a>
   <div class="center-offset">
-    <h4 data-si="පැතිර යාම පිලිබද වූ සිතියම" data-ta="திடீர்ப்பரம்பலின் வரைப்படம்"><span class="embed-show">COVID-19 </span>Outbreak Map</h4>
+    <h4 data-si="පැතිර යාම පිලිබද වූ සිතියම" data-ta="திடீர்ப்பரம்பலின் வரைப்படம்"><span class="embed-hide">COVID-19 </span>Outbreak Map</h4>
   </div>
   <section id="map-legend">
     <div><span class="one">▉</span> <span data-si="1-10 රෝගීන්" data-ta="1-10 நோயாளர்கள்">1-10 cases</span></div>
@@ -113,10 +113,12 @@
     <div><span class="three">▉</span> <span data-si="26-50 රෝගීන්" data-ta="26-50 நோயாளர்கள்" >26-50 cases</span></div>
     <div><span class="four">▉</span> <span data-si="51+ රෝගීන්" data-ta="51+ நோயாளர்கள்" >51+ cases</span></div>
   </section>
-  <div id="map-container"></div>
-  <h5 class="embed-show" data-si="" data-ta=""  >powered by <a href="https://covidsl.com" target="_blank">CovidSL.com</a></h5>
 
-  <section id="chart-legend-container" class="embed-hide">
+  <div id="map-container"></div>
+</section>
+
+
+  <section id="chart-legend-container" class="embed-show">
     <h4 data-si="පැතිරයාමේ ප්‍රවණතාවය" data-ta="நோய்ப்பரம்பலின் போக்கு">Outbreak Spread Trend</h4>
     <div id="chart-legend">
       <div><span class="one">▉</span> <span data-si="රෝගීන්" data-ta="நோயாளர்கள்">Cases</span></div>
@@ -127,10 +129,10 @@
     </div>
   </section>
 
-  <section id="trend-chart-container" class="embed-hide">
+  <section id="trend-chart-container" class="embed-show">
     <canvas id="trend-chart"></canvas>
   </section>
-<section id="chart-legend-container" class="embed-hide">
+<section id="chart-legend-container" class="embed-show">
     <h4 data-si="දිනපතා වැඩි වීම සහ සුවය ලැබූ රෝගීන්" data-ta="தினசரி அதிகரிப்பு / குணமடைந்தவை">Daily Increase & Recovered</h4>
     <!-- <div id="chart-legend">
 
@@ -138,8 +140,13 @@
                 Increase</span></div>
     </div> -->
 </section>
-<section id="trend-chart-container" class="embed-hide">
+<section id="trend-chart-container" class="embed-show">
     <canvas id="trend-chart-daily-increase"></canvas>
+</section>
+<section>
+    <p class="embed-show footer-credit" data-si="" data-ta="">Powered by <a href="https://covidsl.com"
+            target="_blank">covidsl.com</a>
+    </p>
 </section>
 
   <section class="embed-hide">
