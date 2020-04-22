@@ -349,7 +349,7 @@ if (trendData.confirmed != ''){
               display: true,
               reverse: true,
               fullWidth: true,
-              align:'start',
+              align:'center',
               labels: {
                   fontSize: 10,
               },
@@ -443,7 +443,7 @@ if (trendData.confirmed != ''){
           },
       },
   })
-// console.log(ctx2)
+
 }
 
 
@@ -821,18 +821,14 @@ window.onload = function(){
           }
       )
   }
-  console.log(document.readyState)
-if (document.readyState === 'complete' || document.readyState === 'loaded') {
-    console.log("done")
-     loadDataOnPage()
-     LoadHpbDataOnPage()
-     drawMap()
-     map.once('style.load', function (e) {
-         styleLoaded = true
-         whenMapAndDataReady()
-     })
-}
 
+  loadDataOnPage()
+  LoadHpbDataOnPage()
+drawMap()
+map.once('style.load', function (e) {
+    styleLoaded = true
+    whenMapAndDataReady()
+})
   // Reload data every INTERVAL
   setInterval(function() {
     pageDraws++
