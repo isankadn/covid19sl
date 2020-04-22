@@ -243,6 +243,9 @@ function drawTrendChart(sheetTrend) {
       options: {
           tooltips: {
               mode: 'index',
+              position: 'nearest',
+              titleFontSize: Math.round(ctx.canvas.clientWidth / 32),
+              bodyFontSize: Math.round(ctx.canvas.clientWidth / 32),
           },
           maintainAspectRatio: true,
           responsive: true,
@@ -330,6 +333,9 @@ function drawTrendChart(sheetTrend) {
       options: {
           tooltips: {
               mode: 'index',
+              position: 'nearest',
+              titleFontSize: Math.round(ctx2.canvas.clientWidth / 32),
+              bodyFontSize: Math.round(ctx2.canvas.clientWidth / 32),
           },
           maintainAspectRatio: true,
           responsive: true,
