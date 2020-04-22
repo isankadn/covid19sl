@@ -835,9 +835,9 @@ window.onload = function(){
   loadDataOnPage()
   LoadHpbDataOnPage()
 drawMap()
-// map.once('style.load', function (e) {
-//     styleLoaded = true
-//     whenMapAndDataReady()
-// })
+map.once('style.load', function (e) {
+    styleLoaded = true
+    whenMapAndDataReady()
+})
 
 }
