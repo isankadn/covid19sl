@@ -834,10 +834,10 @@ window.onload = function(){
 
   loadDataOnPage()
   LoadHpbDataOnPage()
-// drawMap()
-// map.once('style.load', function (e) {
-//     styleLoaded = true
-//     whenMapAndDataReady()
-// })
+drawMap()
+map.once('style.load', function (e) {
+    styleLoaded = true
+    whenMapAndDataReady()
+})
 
 }
