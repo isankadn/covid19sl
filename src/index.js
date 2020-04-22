@@ -10,6 +10,7 @@ const COLOR_RECOVERED = 'rgb(4,148,39, 0.7)'
 const COLOR_DECEASED = 'rgb(55,71,79)'
 const COLOR_INCREASE = 'rgb(163,172,191, 0.7)'
 const PAGE_TITLE = 'Coronavirus Disease (COVID-19) Sri Lanka Tracker'
+
 let LANG = 'en'
 //https://docs.google.com/spreadsheets/d/e/2PACX-1vSCRHzTX82QIyeYRwyzEdLsQZN7uq8Zqf5D1lH5g99qBbOvyQQf0xJit4WvQe2xFyzee3UrmXEkZkLa/pub?output=csv
 // Global vars
@@ -824,18 +825,19 @@ window.onload = function(){
           }
       )
   }
-
-  loadDataOnPage()
-  LoadHpbDataOnPage()
-    drawMap()
-map.once('style.load', function (e) {
-    styleLoaded = true
-    whenMapAndDataReady()
-})
   // Reload data every INTERVAL
   setInterval(function() {
     pageDraws++
     loadDataOnPage()
     LoadHpbDataOnPage()
   }, FIVE_MINUTES_IN_MS)
+
+  loadDataOnPage()
+  LoadHpbDataOnPage()
+drawMap()
+// map.once('style.load', function (e) {
+//     styleLoaded = true
+//     whenMapAndDataReady()
+// })
+
 }
