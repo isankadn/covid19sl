@@ -290,11 +290,11 @@ if (trendData.confirmed != ''){
                   {
                       ticks: {
                           minor: {
-                              fontSize: Math.round(ctx.canvas.clientWidth / 32),
+                              fontSize: 8,
                           },
                       },
                       scaleLabel: {
-                          fontSize: Math.round(ctx.canvas.clientWidth / 32),
+                          fontSize: 8,
                           display: false,
                           labelString: 'Cases',
                       },
@@ -335,8 +335,8 @@ if (trendData.confirmed != ''){
           tooltips: {
               mode: 'index',
               position: 'nearest',
-              titleFontSize: Math.round(ctx2.canvas.clientWidth / 32),
-              bodyFontSize: Math.round(ctx2.canvas.clientWidth / 32),
+              titleFontSize: 8,
+              bodyFontSize: 8,
           },
           maintainAspectRatio: true,
           responsive: true,
@@ -351,7 +351,7 @@ if (trendData.confirmed != ''){
               fullWidth: true,
               align:'start',
               labels: {
-                  fontSize: Math.round(ctx2.canvas.clientWidth / 32),
+                  fontSize: 10,
               },
           },
           scales: {
@@ -398,14 +398,12 @@ if (trendData.confirmed != ''){
                       },
                       ticks: {
                           minor: {
-                              fontSize: Math.round(
-                                  ctx2.canvas.clientWidth / 32
-                              ),
+                              fontSize: 8,
                           },
                       },
 
                       scaleLabel: {
-                          fontSize: Math.round(ctx2.canvas.clientWidth / 32),
+                          fontSize: 8,
                           display: false,
                           labelString: 'Cases',
                       },
@@ -419,8 +417,7 @@ if (trendData.confirmed != ''){
                   var chartInstance = this.chart
 
                   ctx = chartInstance.ctx
-                  this.chart.options.scales.yAxes[0].ticks.minor.fontSize =
-                      this.chart.width / 64
+                  this.chart.options.scales.yAxes[0].ticks.minor.fontSize =  Math.round(this.chart.width / 64)
 
                   ctx.font = Chart.helpers.fontString(
                       Math.round(this.chart.width / 64),
@@ -446,7 +443,7 @@ if (trendData.confirmed != ''){
           },
       },
   })
-
+// console.log(ctx2)
 }
 
 
@@ -765,7 +762,7 @@ window.onload = function(){
   var pageDraws = 0
   var styleLoaded = false
   var jsonData = undefined
-  const FIVE_MINUTES_IN_MS = 300000
+  const FIVE_MINUTES_IN_MS = 3000
 
   function whenMapAndDataReady(){
     // This runs drawMapPref only when
