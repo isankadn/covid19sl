@@ -420,6 +420,6 @@ body.embed {
 }
 
 .chartjs-render-monitor {
-min-width: 500px;
+    min-width: 500px !important;
     height: auto !important;
 }

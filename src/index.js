@@ -349,6 +349,7 @@ if (trendData.confirmed != ''){
               display: true,
               reverse: true,
               fullWidth: true,
+              align:'start',
               labels: {
                   fontSize: Math.round(ctx2.canvas.clientWidth / 32),
               },
