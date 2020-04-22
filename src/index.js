@@ -181,12 +181,13 @@ function drawTrendChart(sheetTrend) {
       x: new Date(trendData.date),
       y: prevRecoveredSet === -1 ? 0 : parseInt(trendData.recovered) - prevRecoveredSet
     })
-
+if (trendData.confirmed != ''){
     activeSet.push({
+
         x: new Date(trendData.date),
         y: parseInt(trendData.confirmed - trendData.recovered - trendData.deceased),
     })
-
+}
     prevRecoveredSet = parseInt(trendData.recovered)
     prevConfirmed = parseInt(trendData.confirmed)
     lastUpdated = trendData.date
@@ -355,6 +356,8 @@ function drawTrendChart(sheetTrend) {
           scales: {
               xAxes: [
                   {
+
+                      offset: false,
                       stacked: true,
                       type: 'time',
                       display: false,
@@ -371,7 +374,12 @@ function drawTrendChart(sheetTrend) {
                   },
 
                   {
+                      gridLines: {
+                          offsetGridLines: false,
+                          display: true,
+                      },
                       ticks: {
+                          beginAtZero: true,
                           fontSize: 8,
                           minRotation: 90,
                           maxRotation: 90,
@@ -384,6 +392,9 @@ function drawTrendChart(sheetTrend) {
 
               yAxes: [
                   {
+                      gridLines: {
+                          offsetGridLines: false,
+                      },
                       ticks: {
                           minor: {
                               fontSize: Math.round(
