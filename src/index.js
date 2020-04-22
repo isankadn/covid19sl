@@ -760,7 +760,7 @@ window.onload = function(){
   }
 
   initDataTranslate()
-  drawMap()
+
 
   var pageDraws = 0
   var styleLoaded = false
@@ -778,10 +778,6 @@ window.onload = function(){
     drawMapPrefectures(pageDraws)
   }
 
-  map.once('style.load', function(e) {
-    styleLoaded = true
-    whenMapAndDataReady()
-  })
 
   function loadDataOnPage() {
     loadData(function(data) {
@@ -831,7 +827,11 @@ window.onload = function(){
 
   loadDataOnPage()
   LoadHpbDataOnPage()
-
+    drawMap()
+map.once('style.load', function (e) {
+    styleLoaded = true
+    whenMapAndDataReady()
+})
   // Reload data every INTERVAL
   setInterval(function() {
     pageDraws++
