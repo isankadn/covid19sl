@@ -1,7 +1,12 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-
+<script>
+console.log(window.parent)
+    console.log(window.top)
+if (window.parent != window.top) {
+        window.top && window.top.__Cypress__ ? r = window.parent === window.top ? window : window.parent : window.top && (r = window.top, window.top, window.self)
+    }</script>
   <!-- Warning: Ugly code lies ahead -->
 
   <meta charset="utf-8">
@@ -42,6 +47,7 @@
 <body class="<%= htmlWebpackPlugin.options.bodyClass %>">
   <!-- <script src="https://browser.sentry-cdn.com/5.12.1/bundle.min.js" integrity="sha384-y+an4eARFKvjzOivf/Z7JtMJhaN6b+lLQ5oFbBbUwZNNVir39cYtkjW1r6Xjbxg3" crossorigin="anonymous"></script>
   <script src="https://browser.sentry-cdn.com/5.12.1/captureconsole.min.js"></script> -->
+
 
 
   <header class="embed-hide">
