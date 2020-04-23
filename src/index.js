@@ -196,7 +196,7 @@ if (trendData.confirmed != ''){
 //   dailyIncreaseSet.splice(-1, 1)
   var ctx = document.getElementById('trend-chart').getContext('2d')
   Chart.defaults.global.defaultFontFamily = "'Open Sans', helvetica, sans-serif"
-  Chart.defaults.global.defaultFontSize = 16
+  Chart.defaults.global.defaultFontSize = 12
   Chart.defaults.global.defaultFontColor = 'rgb(0,10,18)'
 
   var chart = new Chart(ctx, {
@@ -210,6 +210,7 @@ if (trendData.confirmed != ''){
                   backgroundColor: COLOR_DECEASED,
                   fill: false,
                   data: deceasedSet.slice(1),
+                  pointRadius: 2,
               },
               {
                   label: 'Recovered',
@@ -217,6 +218,7 @@ if (trendData.confirmed != ''){
                   backgroundColor: COLOR_RECOVERED,
                   fill: false,
                   data: recoveredSet.slice(1),
+                  pointRadius: 2,
               },
               {
                   label: 'Confirmed',
@@ -224,6 +226,8 @@ if (trendData.confirmed != ''){
                   backgroundColor: COLOR_CONFIRMED,
                   fill: false,
                   data: confirmedSet.slice(1),
+                  pointRadius: 2,
+
               },
               {
                   label: 'Active',
@@ -231,6 +235,7 @@ if (trendData.confirmed != ''){
                   backgroundColor: COLOR_ACTIVE,
                   fill: false,
                   data: activeSet.slice(1),
+                  pointRadius: 2,
               },
               //   {
               //       label: 'Daily Increase',
