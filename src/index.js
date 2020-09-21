@@ -262,8 +262,8 @@ if (trendData.confirmed != ''){
           tooltips: {
               mode: 'index',
               position: 'nearest',
-              titleFontSize: Math.round(ctx.canvas.clientWidth / 32),
-              bodyFontSize: Math.round(ctx.canvas.clientWidth / 32),
+              titleFontSize: 9,
+              bodyFontSize: 9,
           },
           maintainAspectRatio: true,
           responsive: true,
@@ -358,8 +358,8 @@ if (trendData.confirmed != ''){
           tooltips: {
               mode: 'index',
               position: 'nearest',
-              titleFontSize: Math.round(ctx.canvas.clientWidth / 32),
-              bodyFontSize: Math.round(ctx.canvas.clientWidth / 32),
+              titleFontSize: 9,
+              bodyFontSize:9,
           },
           maintainAspectRatio: true,
           responsive: true,
