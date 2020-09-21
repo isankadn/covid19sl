@@ -8,7 +8,7 @@ const COLOR_CONFIRMED = 'rgb(244,67,54, 0.3)'
 const COLOR_ACTIVE = 'rgb(244,67,54)'
 const COLOR_RECOVERED = 'rgb(4,148,39, 0.7)'
 const COLOR_DECEASED = 'rgb(55,71,79)'
-const COLOR_INCREASE = 'rgb(163,172,191, 0.7)'
+const COLOR_INCREASE = 'rgb(223,14,31, 1)'
 const PAGE_TITLE = 'Coronavirus Disease (COVID-19) Sri Lanka Tracker'
 let LANG = 'en'
 //https://docs.google.com/spreadsheets/d/e/2PACX-1vSCRHzTX82QIyeYRwyzEdLsQZN7uq8Zqf5D1lH5g99qBbOvyQQf0xJit4WvQe2xFyzee3UrmXEkZkLa/pub?output=csv
@@ -335,7 +335,7 @@ if (trendData.confirmed != ''){
               {
                   label: 'Daily Increase',
                   borderWidth: 1,
-                  borderColor: 'rgb(163,172,191, 1)',
+                  borderColor: 'rgb(223,14,31, 1)',
                   backgroundColor: COLOR_INCREASE,
                   fill: false,
                   data: dailyIncreaseSet.slice(1),
