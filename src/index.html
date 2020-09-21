@@ -8,6 +8,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
   <title>Sri Lanka COVID-19 Coronavirus Tracker</title>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i,800&display=swap" rel="stylesheet">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
   <link
     rel="icon"
@@ -45,7 +49,7 @@
 
 
   <header class="embed-hide">
-      <div class="twosl"><a href="https://2sl.covidsl.com/"  target="_blank" style="">Share Your <span class="red_color">Needs</span> in 2SL</a></div>
+      <!-- <div class="twosl"><a href="https://2sl.covidsl.com/"  target="_blank" style="">Share Your <span class="red_color">Needs</span> in 2SL</a></div> -->
    <div class="lang-picker">
       <a href="#" data-lang-picker='si' style="">සිං</a> |
       <a href="#" data-lang-picker='ta' style="">தமி</a> |
@@ -120,6 +124,8 @@
 
   <section id="chart-legend-container" class="">
     <h4 data-si="පැතිරයාමේ ප්‍රවණතාවය" data-ta="நோய்ப்பரம்பலின் போக்கு">Outbreak Spread Trend</h4>
+
+
     <div id="chart-legend">
       <div><span class="one">▉</span> <span data-si="රෝගීන්" data-ta="நோயாளர்கள்">Cases</span></div>
     <div><span class="four">▉</span> <span data-si="සක්‍රීය" data-ta="சிகிச்சையின் கீழ்">Active</span></div>
@@ -141,6 +147,55 @@
     </div> -->
 </section>
 <section id="trend-chart-container" class="">
+    <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px;width: 98%">
+        <i class="fa fa-calendar"></i><button style="box-shadow: inset 0px 1px 0px 0px #a4e271; background: linear-gradient(to bottom, #039427 5%, #039427 100%); background-color: #039427; border-radius: 6px; border: 1px solid #74b807; display: inline-block; cursor: pointer; color: #ffffff; font-family: Arial; font-size: 15px; font-weight: bold; padding: 6px 24px; text-decoration: none; text-shadow: 0px 1px 0px #528009;">Select Date Range </button>
+        <br /><span id="reportrangespan" style="font-size: 12px;"></span> <i class="fa fa-caret-down"></i>
+    </div>
+    <input hidden name="range-start" class="range-start" id="range-start" value="start" />
+    <input hidden name="range-end" class="range-end" id="range-end" value="end" />
+
+    <script type="text/javascript">
+        $(function () {
+
+            var start = moment().subtract(29, 'days');
+            var end = moment();
+
+            function cb(start, end) {
+                document.getElementById("range-start").setAttribute('value', start);
+                document.getElementById("range-end").setAttribute('value', end);
+
+                var element = document.getElementById('range-start');
+                var event = new Event('change');
+                element.dispatchEvent(event);
+
+                $('#reportrange #reportrangespan').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+
+            }
+
+            $('#reportrange').daterangepicker({
+
+                startDate: start,
+                endDate: end,
+                ranges: {
+
+                    'Last 7 Days': [moment().subtract(7, 'days'), moment().add(1, 'days')],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment().add(1, 'days')],
+                    'This Month': [moment().startOf('month'), moment().endOf('month').add(1, 'days')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month').add(1, 'days')],
+                    'Start to Today ': [new Date('March 1, 2020'),  moment().endOf('month')]
+                }
+            }, cb);
+
+            cb(start, end);
+            // console.log(start.format('YYYY-MM-DD') , end.format('YYYY-MM-DD') )
+
+
+        });
+
+
+
+
+    </script>
     <canvas id="trend-chart-daily-increase"></canvas>
 </section>
 <section>

@@ -145,8 +145,15 @@ function drawMap() {
   }))
 }
 
+if (mchart) {mchart.destroy()}
+if (mchart2) {
+    mchart2.destroy()
+}
+var mchart
+var mchart2
 
 function drawTrendChart(sheetTrend) {
+
 
   let lastUpdated = ''
   let labelSet = []
@@ -160,6 +167,7 @@ function drawTrendChart(sheetTrend) {
   let prevRecoveredSet = -1
   let prevConfirmed = -1
   sheetTrend.map(function(trendData){
+    //  console.log(trendData.date)
     labelSet.push(new Date(trendData.date))
     confirmedSet.push({
       x: new Date(trendData.date),
@@ -194,12 +202,13 @@ if (trendData.confirmed != ''){
   })
 //   console.log(activeSet)
 //   dailyIncreaseSet.splice(-1, 1)
+
   var ctx = document.getElementById('trend-chart').getContext('2d')
   Chart.defaults.global.defaultFontFamily = "'Open Sans', helvetica, sans-serif"
   Chart.defaults.global.defaultFontSize = 12
   Chart.defaults.global.defaultFontColor = 'rgb(0,10,18)'
-
-  var chart = new Chart(ctx, {
+//   console.log(this)
+  mchart = new Chart(ctx, {
       type: 'line',
       data: {
           labels: labelSet.slice(1),
@@ -227,7 +236,6 @@ if (trendData.confirmed != ''){
                   fill: false,
                   data: confirmedSet.slice(1),
                   pointRadius: 2,
-
               },
               {
                   label: 'Active',
@@ -247,6 +255,10 @@ if (trendData.confirmed != ''){
           ],
       },
       options: {
+          events: ['click'],
+          hover: {
+              mode: 'point',
+          },
           tooltips: {
               mode: 'index',
               position: 'nearest',
@@ -308,12 +320,14 @@ if (trendData.confirmed != ''){
           },
       },
   })
+  mchart.update()
+
 
   var ctx2 = document.getElementById('trend-chart-daily-increase').getContext('2d')
 
 
 
-  var chart2 = new Chart(ctx2, {
+  mchart2 = new Chart(ctx2, {
       type: 'bar',
       data: {
           labels: labelSet.slice(1),
@@ -337,11 +351,15 @@ if (trendData.confirmed != ''){
           ],
       },
       options: {
+          events: ['click'],
+          hover: {
+              mode: 'point',
+          },
           tooltips: {
               mode: 'index',
               position: 'nearest',
-              titleFontSize: 8,
-              bodyFontSize: 8,
+              titleFontSize: Math.round(ctx.canvas.clientWidth / 32),
+              bodyFontSize: Math.round(ctx.canvas.clientWidth / 32),
           },
           maintainAspectRatio: true,
           responsive: true,
@@ -354,7 +372,7 @@ if (trendData.confirmed != ''){
               display: true,
               reverse: true,
               fullWidth: true,
-              align:'center',
+              align: 'center',
               labels: {
                   fontSize: 10,
               },
@@ -362,7 +380,6 @@ if (trendData.confirmed != ''){
           scales: {
               xAxes: [
                   {
-
                       offset: false,
                       stacked: true,
                       type: 'time',
@@ -422,7 +439,9 @@ if (trendData.confirmed != ''){
                   var chartInstance = this.chart
 
                   ctx = chartInstance.ctx
-                  this.chart.options.scales.yAxes[0].ticks.minor.fontSize =  Math.round(this.chart.width / 64)
+                  this.chart.options.scales.yAxes[0].ticks.minor.fontSize = Math.round(
+                      this.chart.width / 64
+                  )
 
                   ctx.font = Chart.helpers.fontString(
                       Math.round(this.chart.width / 64),
@@ -829,15 +848,74 @@ window.onload = function(){
 
   loadDataOnPage()
   LoadHpbDataOnPage()
-drawMap()
+  drawMap()
 map.once('style.load', function (e) {
     styleLoaded = true
     whenMapAndDataReady()
 })
-  // Reload data every INTERVAL
-  setInterval(function() {
-    pageDraws++
-    loadDataOnPage()
-    LoadHpbDataOnPage()
-  }, FIVE_MINUTES_IN_MS)
+
 }
+const FIVE_MINUTES_IN_MS = 300000
+// Reload data every INTERVAL
+  setInterval(function() {
+
+     loadData(function (data) {
+         jsonData = data
+
+         ddb.prefectures = jsonData.prefectures
+         let newTotals = calculateTotals(jsonData.daily)
+         ddb.totals = newTotals[0]
+         ddb.totalsDiff = newTotals[1]
+         ddb.trend = jsonData.daily
+         ddb.lastUpdated = jsonData.updated[0].lastupdated
+
+         drawKpis(ddb.totals, ddb.totalsDiff)
+         if (!document.body.classList.contains('embed-mode')) {
+             drawLastUpdated(ddb.lastUpdated)
+             drawPageTitleCount(ddb.totals.confirmed)
+             drawPrefectureTable(ddb.prefectures, ddb.totals)
+             drawTrendChart(ddb.trend)
+         }
+
+
+     })
+
+  }, FIVE_MINUTES_IN_MS)
+
+
+document.getElementById('range-start').addEventListener('change', function () {
+
+
+    // console.log(event.target)
+    const range_start = document.getElementById('range-start').value
+    const range_end = document.getElementById('range-end').value
+
+    loadData(function (data) {
+        jsonData = data
+        //  console.log(jsonData)
+        // console.log(new Date(range_start), new Date(range_end))
+        // console.log(range_start, range_end)
+        let newJsonData = []
+        var tmpJsonData = jsonData.daily.filter(function (s) {
+
+            if (new Date(s.date) >= new Date(range_start) && new Date(s.date) <= new Date(range_end)) {
+                newJsonData.push(s)
+                // console.log(s)
+            }
+
+        })
+        // console.log(newJsonData)
+        // console.log('break....')
+
+
+
+        ddb.trend = newJsonData
+
+
+        drawKpis(ddb.totals, ddb.totalsDiff)
+        if (!document.body.classList.contains('embed-mode')) {
+
+            drawTrendChart(ddb.trend)
+        }
+    })
+})
