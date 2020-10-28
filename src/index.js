@@ -200,8 +200,10 @@ function drawTrendChart(sheetTrend) {
             prevConfirmed = parseInt(trendData.confirmed)
             lastUpdated = trendData.date
         })
-        //   console.log(activeSet)
-        //   dailyIncreaseSet.splice(-1, 1)
+        // console.log(deceasedSet.slice(1))
+        // console.log("asasazs")
+        // console.log(recoveredSet.slice(1))
+
 
     var ctx = document.getElementById('trend-chart').getContext('2d')
     Chart.defaults.global.defaultFontFamily = "'Open Sans', helvetica, sans-serif"
@@ -244,13 +246,7 @@ function drawTrendChart(sheetTrend) {
                     data: activeSet.slice(1),
                     pointRadius: 2,
                 },
-                //   {
-                //       label: 'Daily Increase',
-                //       borderColor: COLOR_INCREASE,
-                //       backgroundColor: COLOR_INCREASE,
-                //       fill: false,
-                //       data: dailyIncreaseSet.slice(1),
-                //   },
+
             ],
         },
         options: {
@@ -566,7 +562,17 @@ function drawHositalTable(data) {
 }
 
 
-function drawKpis(totals, totalsDiff) {
+function drawKpis(
+    totals,
+    totalsDiff,
+    local_total_cases,
+    local_deaths,
+    local_recovered,
+    local_active_cases,
+    local_new_cases,
+    local_new_deaths,
+    total_pcr_testing_count
+) {
     // Draw the KPI values
 
     function setKpi(key, value) {
@@ -574,27 +580,61 @@ function drawKpis(totals, totalsDiff) {
     }
 
     function setKpiDiff(key, value) {
-        let diffDir = (value >= 0 ? '+' : '')
-        document.querySelector('#kpi-' + key + ' .diff').innerHTML = '( ' + diffDir + value + ' )'
+        let diffDir = value >= 0 ? '+' : ''
+        document.querySelector('#kpi-' + key + ' .diff').innerHTML =
+            '( ' + diffDir + value + ' )'
     }
+    var highestConfirmed =
+        local_total_cases > totals.confirmed ?
+        local_total_cases :
+        totals.confirmed
+        // console.log(highestConfirmed)
+    setKpi('confirmed', highestConfirmed)
+    var highestDiffConfirmed =
+        local_new_cases > totalsDiff.confirmed ?
+        local_new_cases :
+        totalsDiff.confirmed
+    setKpiDiff('confirmed', highestDiffConfirmed)
 
-    setKpi('confirmed', totals.confirmed)
-    setKpiDiff('confirmed', totalsDiff.confirmed)
-    setKpi('recovered', totals.recovered)
+    var highestRecovered =
+        local_recovered > totals.recovered ? local_recovered : totals.recovered
+    setKpi('recovered', highestRecovered)
     setKpiDiff('recovered', totalsDiff.recovered)
-    setKpi('deceased', totals.deceased)
-    setKpiDiff('deceased', totalsDiff.deceased)
+
+    var highestDeceased =
+        local_deaths > totals.deceased ? local_deaths : totals.deceased
+    setKpi('deceased', highestDeceased)
+    var highestDiffDeceased =
+        local_new_deaths > totalsDiff.deceased ?
+        local_new_deaths :
+        totalsDiff.deceased
+    setKpiDiff('deceased', highestDiffDeceased)
+
     setKpi('critical', totals.critical)
     setKpiDiff('critical', totalsDiff.critical)
-    setKpi('tested', totals.tested)
-    setKpiDiff('tested', totalsDiff.tested)
-    setKpi('active', (totals.confirmed - totals.recovered) - totals.deceased)
-    setKpiDiff('active', (totalsDiff.confirmed - totalsDiff.recovered) - totalsDiff.deceased)
-    setKpi('deceasedpercentage', (totals.deceased * 100 / totals.confirmed).toFixed(2))
 
+    var highestTested =
+        total_pcr_testing_count > totals.tested ?
+        total_pcr_testing_count :
+        totals.tested
+    setKpi('tested', highestTested)
+    setKpiDiff('tested', totalsDiff.tested)
+    var activeCases = totals.confirmed - totals.recovered - totals.deceased
+    var highesactiveCases =
+        local_active_cases > activeCases ? local_active_cases : activeCases
+    setKpi('active', highesactiveCases)
+    setKpiDiff(
+        'active',
+        totalsDiff.confirmed - totalsDiff.recovered - totalsDiff.deceased
+    )
+    setKpi(
+        'deceasedpercentage',
+        ((totals.deceased * 100) / totals.confirmed).toFixed(2)
+    )
 }
 
 function drawTotalHospitalized(totalhospitalized) {
+    // console.log('jsonData')
 
     function setKpi(key, value) {
 
@@ -603,7 +643,9 @@ function drawTotalHospitalized(totalhospitalized) {
     }
 
     setKpi('hospitalized', '&nbsp (' + totalhospitalized + ')')
+
 }
+
 
 function drawLastUpdated(lastUpdated) {
     // Draw the last updated time
@@ -779,6 +821,8 @@ window.onload = function() {
     var pageDraws = 0
     var styleLoaded = false
     var jsonData = undefined
+
+    var jsonHpbData = undefined
     const FIVE_MINUTES_IN_MS = 300000
 
     function whenMapAndDataReady() {
@@ -792,8 +836,32 @@ window.onload = function() {
         drawMapPrefectures(pageDraws)
     }
 
+    function LoadHpbDataOnPage() {
+        loadDataHpb(function(data) {
+            jsonHpbData = data
+
+            // console.log(jsonHpbData['data'])
+
+
+
+            hospitalData = jsonHpbData['data']['hospital_data']
+            drawHositalTable(hospitalData)
+
+            treatment_total =
+                jsonHpbData['data'][
+                    'local_total_number_of_individuals_in_hospitals'
+                ]
+            if (!document.body.classList.contains('embed-mode')) {
+                drawTotalHospitalized(treatment_total)
+            }
+
+        })
+
+    }
+
 
     function loadDataOnPage() {
+
         loadData(function(data) {
             jsonData = data
 
@@ -804,7 +872,37 @@ window.onload = function() {
             ddb.trend = jsonData.daily
             ddb.lastUpdated = jsonData.updated[0].lastupdated
 
-            drawKpis(ddb.totals, ddb.totalsDiff)
+            loadDataHpb(function(data) {
+                jsonHpbData = data
+
+                let local_total_cases = jsonHpbData['data']['local_total_cases']
+                let local_deaths = jsonHpbData['data']['local_deaths']
+                let local_recovered = jsonHpbData['data']['local_recovered']
+                let local_active_cases = jsonHpbData['data']['local_active_cases']
+                let local_new_cases = jsonHpbData['data']['local_new_cases']
+                let local_new_deaths = jsonHpbData['data']['local_new_deaths']
+                let total_pcr_testing_count = jsonHpbData['data']['total_pcr_testing_count']
+
+                console.log(jsonHpbData['data'])
+
+                drawKpis(
+                    ddb.totals,
+                    ddb.totalsDiff,
+                    local_total_cases,
+                    local_deaths,
+                    local_recovered,
+                    local_active_cases,
+                    local_new_cases,
+                    local_new_deaths,
+                    total_pcr_testing_count
+                )
+            })
+
+
+
+
+
+
             if (!document.body.classList.contains('embed-mode')) {
                 drawLastUpdated(ddb.lastUpdated)
                 drawPageTitleCount(ddb.totals.confirmed)
@@ -816,31 +914,9 @@ window.onload = function() {
         })
     }
 
-    function LoadHpbDataOnPage() {
-        loadDataHpb(
-            function(data) {
-                jsonHpbData = data
-                    //  console.log(jsonHpbData)
-                hospitalData = jsonHpbData['data']['hospital_data']
-                drawHositalTable(hospitalData)
 
-                //   let treatment_total = 0
-                //   for (var i = 0; i < hospitalData.length; i++) {
-                //       //   console.log(i)
-                //       treatment_total += hospitalData[i]['treatment_total']
-                //       //   console.log(data[i]['treatment_total'])
-                //   }
-                treatment_total = jsonHpbData['data']['local_total_number_of_individuals_in_hospitals']
-                if (!document.body.classList.contains('embed-mode')) {
-                    drawTotalHospitalized(treatment_total)
-                }
-
-            }
-        )
-    }
-
-    loadDataOnPage()
     LoadHpbDataOnPage()
+    loadDataOnPage()
     drawMap()
     map.once('style.load', function(e) {
         styleLoaded = true
