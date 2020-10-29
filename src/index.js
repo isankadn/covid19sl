@@ -588,7 +588,7 @@ function drawKpis(
         local_total_cases > totals.confirmed ?
         local_total_cases :
         totals.confirmed
-        // console.log(highestConfirmed)
+    console.log(totals.confirmed)
     setKpi('confirmed', highestConfirmed)
     var highestDiffConfirmed =
         local_new_cases > totalsDiff.confirmed ?
@@ -872,6 +872,12 @@ window.onload = function() {
             ddb.trend = jsonData.daily
             ddb.lastUpdated = jsonData.updated[0].lastupdated
 
+            drawKpis(
+                ddb.totals,
+                ddb.totalsDiff,
+
+            )
+
             loadDataHpb(function(data) {
                 jsonHpbData = data
 
@@ -883,7 +889,7 @@ window.onload = function() {
                 let local_new_deaths = jsonHpbData['data']['local_new_deaths']
                 let total_pcr_testing_count = jsonHpbData['data']['total_pcr_testing_count']
 
-                console.log(jsonHpbData['data'])
+                // console.log(jsonHpbData['data'])
 
                 drawKpis(
                     ddb.totals,
@@ -897,10 +903,6 @@ window.onload = function() {
                     total_pcr_testing_count
                 )
             })
-
-
-
-
 
 
             if (!document.body.classList.contains('embed-mode')) {
