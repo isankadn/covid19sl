@@ -27,6 +27,19 @@
     <meta property="og:image" content="http://covidsl.com/static/map2.jpg" />
     <meta property="og:description" content="Live updates of the Coronavirus COVID-19 outbreak in Sri Lanka" />
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-110175412-4"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js ', new Date());
+
+        gtag('config ', 'UA-110175412-4 ');
+    </script>
+
 <link href="/index.css" rel="stylesheet"></head>
 
 <body class="">
@@ -316,15 +329,7 @@
   <!-- JS -->
 
   <script src="https://cdn.jsdelivr.net/combine/npm/moment@2.24.0/moment.min.js,npm/chart.js@2.9.4,npm/lodash@4.17.15/lodash.min.js,npm/fetch-polyfill@0.8.2/fetch.min.js"></script>
- <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110175412-4"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js ', new Date());
 
-    gtag('config ', 'UA-110175412-4 ');
-</script>
 
 <script src="https://api.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js"></script>
 <link href="https://api.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css" rel="stylesheet" />
