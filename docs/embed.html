@@ -122,11 +122,19 @@
             <div class="label" data-si="සුවය ලැබූ" data-ta="குணமடைந்தவை">Recovered</div>
         </div>
     </section>
-
+    <div class="center-offset">
+        <h4 data-si="පැතිර යාම පිලිබද වූ සිතියම" data-ta="திடீர்ப்பரம்பலின் வரைப்படம்"><span class="embed-hidea">COVID-19 </span>Outbreak Map</h4>
+    </div>
     <section id="map-container-outer" class="embed-hidea">
         <a name="map"></a>
+        <div style="margin: auto; ">
+            <div id="map" style="width: 100%; height: 50vh; border: 1px solid #AAA;margin: auto;"></div>
+        </div>
     </section>
-    <div class="center-offset">
+
+    <!-- OLD MAP -->
+
+    <!-- <div class="center-offset">
         <h4 data-si="පැතිර යාම පිලිබද වූ සිතියම" data-ta="திடீர்ப்பரம்பலின் வரைப்படம்"><span class="embed-hidea">COVID-19 </span>Outbreak Map</h4>
     </div>
     <section id="map-legend">
@@ -137,7 +145,13 @@
     </section>
 
     <div id="map-container"></div>
-    </section>
+    </section> -->
+
+
+    <!-- END OF OLD MAP -->
+
+
+
 
 
     <section id="chart-legend-container" class="">
@@ -328,11 +342,21 @@
     </footer>
 
   <!-- JS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
 
+    <!-- <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js" integrity="sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh" crossorigin=""></script> -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
   <script src="https://cdn.jsdelivr.net/combine/npm/moment@2.24.0/moment.min.js,npm/chart.js@2.9.4,npm/lodash@4.17.15/lodash.min.js,npm/fetch-polyfill@0.8.2/fetch.min.js"></script>
 
 
+  <!-- old map related -->
 <script src="https://api.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js"></script>
 <link href="https://api.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css" rel="stylesheet" />
+
+<!-- end of old map related -->
+
+
+ <script type='text/javascript ' src='https://isankadn.github.io/static/markers.js '></script>
+        <!-- <script type='text/javascript ' src='static/maps/leaf-demo.js '></script> -->
 <script type="text/javascript" src="/index.js"></script></body>
 </html>
