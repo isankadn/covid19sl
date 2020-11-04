@@ -44,6 +44,8 @@
 </head>
 
 <body class="<%= htmlWebpackPlugin.options.bodyClass %>">
+
+
     <!-- <script src="https://browser.sentry-cdn.com/5.12.1/bundle.min.js" integrity="sha384-y+an4eARFKvjzOivf/Z7JtMJhaN6b+lLQ5oFbBbUwZNNVir39cYtkjW1r6Xjbxg3" crossorigin="anonymous"></script>
   <script src="https://browser.sentry-cdn.com/5.12.1/captureconsole.min.js"></script> -->
 
@@ -277,6 +279,116 @@
         <p data-si="** ප්‍රතිකාර ලැබුවන් (එකතුව)" data-ta="**சிகிச்சையளிக்கப்பட்டவை (மொத்தம்)" class="note-hospital">** Treatment = Admitted to hospitals </p>
     </section>
 
+    <!-- Donation start -->
+    <section>
+
+        <h4 data-si="පරිත්‍යාග කරන්න" data-ta="நன்கொடை அளிக்க ஒரு தாழ்மையான கோரிக்கை">A Humble Request to Donate </h4>
+        <p>
+            COVIDSL project is running as a non-profit community initiative with the support of a handful of volunteers. Thus far we have been enabling general public in and outside of Sri Lanka with readily available data channels and increase awareness of the COVID
+            19 pandemic.</p>
+        <p>As our enthusiastic and supportive follower base, we welcome anyone who is capable of making a donation for this cause to support us continue our journey.</p>
+
+
+        </p>
+        <div id="smart-button-container">
+            <div style="text-align: center;">
+                <div style="margin-bottom: 1.25rem;">
+                    <p>Please select your donation amount.</p>
+                    <select style="padding: 0.5rem;" id="item-options"><option value="Donate" price="5">Donate - 5 USD</option><option value="Donate" price="10">Donate - 10 USD</option><option value="Donate" price="50">Donate - 50 USD</option><option value="Donate" price="100">Donate - 100 USD</option></select>
+                    <select style="visibility: hidden" id="quantitySelect"></select>
+                </div>
+                <div id="paypal-button-container"></div>
+            </div>
+        </div>
+        <script src="https://www.paypal.com/sdk/js?client-id=ATpd-j3NhpLfQQC-Y1ZP3msEDdlEtt_EgSRDukH2xp43D09urF19U-hzpBeUtNsdPc7aWzOY0xLVGkTW&currency=USD" data-sdk-integration-source="button-factory"></script>
+        <script>
+            function initPayPalButton() {
+                var shipping = 0;
+                var itemOptions = document.querySelector("#smart-button-container #item-options");
+                var quantity = parseInt();
+                var quantitySelect = document.querySelector("#smart-button-container #quantitySelect");
+                if (!isNaN(quantity)) {
+                    quantitySelect.style.visibility = "visible";
+                }
+                var orderDescription = 'Please select your donation amount.';
+                if (orderDescription === '') {
+                    orderDescription = 'Item';
+                }
+                paypal.Buttons({
+                    style: {
+                        shape: 'pill',
+                        color: 'gold',
+                        layout: 'vertical',
+                        label: 'paypal',
+
+                    },
+                    createOrder: function(data, actions) {
+                        var selectedItemDescription = itemOptions.options[itemOptions.selectedIndex].value;
+                        var selectedItemPrice = parseFloat(itemOptions.options[itemOptions.selectedIndex].getAttribute("price"));
+                        var tax = (0 === 0) ? 0 : (selectedItemPrice * (parseFloat(0) / 100));
+                        if (quantitySelect.options.length > 0) {
+                            quantity = parseInt(quantitySelect.options[quantitySelect.selectedIndex].value);
+                        } else {
+                            quantity = 1;
+                        }
+
+                        tax *= quantity;
+                        tax = Math.round(tax * 100) / 100;
+                        var priceTotal = quantity * selectedItemPrice + parseFloat(shipping) + tax;
+                        priceTotal = Math.round(priceTotal * 100) / 100;
+                        var itemTotalValue = Math.round((selectedItemPrice * quantity) * 100) / 100;
+
+                        return actions.order.create({
+                            purchase_units: [{
+                                description: orderDescription,
+                                amount: {
+                                    currency_code: 'USD',
+                                    value: priceTotal,
+                                    breakdown: {
+                                        item_total: {
+                                            currency_code: 'USD',
+                                            value: itemTotalValue,
+                                        },
+                                        shipping: {
+                                            currency_code: 'USD',
+                                            value: shipping,
+                                        },
+                                        tax_total: {
+                                            currency_code: 'USD',
+                                            value: tax,
+                                        }
+                                    }
+                                },
+                                items: [{
+                                    name: selectedItemDescription,
+                                    unit_amount: {
+                                        currency_code: 'USD',
+                                        value: selectedItemPrice,
+                                    },
+                                    quantity: quantity
+                                }]
+                            }]
+                        });
+                    },
+                    onApprove: function(data, actions) {
+                        return actions.order.capture().then(function(details) {
+                            alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                        });
+                    },
+                    onError: function(err) {
+                        console.log(err);
+                    },
+                }).render('#paypal-button-container');
+            }
+            initPayPalButton();
+        </script>
+
+
+    </section>
+    <!-- Donation end -->
+
+
+
     <section id="helpful-links" class="embed-hide">
         <a name="links"></a>
         <h4 data-si="වැදගත් සබැඳියන්" data-ta="பயனுள்ள இணைப்புகள்">Helpful Links</h4>
@@ -323,7 +435,11 @@
 
     </section>
 
+
     <footer>
+
+
+
         <p data-si="විමසීම් : පියුමල් මල්ලව ආරච්චි (+94 776 124 256 | dpiumal[at]gmail.com)" data-ta="தொடர்பு: பியுமல் மல்லவ ஆராச்சி (+94 776 124 256 | dpiumal[at]gmail.com)" class="footer-credit">
             Contact: Piumal Mallawa Arachchi (+94 776 124 256 | dpiumal[at]gmail.com)
         </p>
