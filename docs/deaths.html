@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-110175412-4"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-110175412-4');
+    </script>
+
+    <!-- Warning: Ugly code lies ahead -->
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <title>Sri Lanka COVID-19 Coronavirus Tracker | COVID-19 related deaths in Sri Lanka</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i,800&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+    <link rel="icon" type="image/png" href="https://covidsl.com/static/favicon.png" />
+    <meta name="description" content="Live updates of the Coronavirus COVID-19 outbreak in Sri Lanka" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://covidsl.com/" />
+    <meta name="twitter:title" content="<title>Sri Lanka COVID-19 Coronavirus Tracker | COVID-19 related deaths in Sri Lanka</title>" />
+
+    <meta name="twitter:description" content="Live updates of the Coronavirus COVID-19 outbreak in Sri Lanka" />
+    <meta property="og:title" content="<title>Sri Lanka COVID-19 Coronavirus Tracker | COVID-19 related deaths in Sri Lanka</title>" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://covidsl.com/" />
+    <meta property="og:image" content="http://covidsl.com/static/map2.jpg" />
+    <meta property="og:description" content="Live updates of the Coronavirus COVID-19 outbreak in Sri Lanka" />
+<link href="/index.css" rel="stylesheet"></head>
+
+<body class="deaths">
+    <section>
+
+        <div>Total Deaths reported: <span id="death-total"></span> </div>
+        <div>Deaths reported today: <span ic="death-today"></span></div>
+
+
+        <footer>
+            <p data-si="විමසීම් : පියුමල් මල්ලව ආරච්චි (+94 776 124 256 | dpiumal[at]gmail.com)" data-ta="தொடர்பு: பியுமல் மல்லவ ஆராச்சி (+94 776 124 256 | dpiumal[at]gmail.com)" class="footer-credit">
+                Contact: Piumal Mallawa Arachchi (+94 776 124 256 | dpiumal[at]gmail.com)
+            </p>
+            <p class="footer-credit">
+                <span data-si="සැකසුම් කටයුතු සහ පවත්වාගෙන යාම: " data-ta="கட்டமைப்பு மற்றும் பராமரிப்பு: "> Built and maintained by </span>
+                <a data-si="ඉසංක විජේරත්න." data-ta="இசங்க விஜேரத்ன." href="https://twitter.com/isankadn" target="_blank">Isanka Wijerathne</a>
+                <span class="embed-hide" data-si=" " data-ta=" ">repository. </span>
+            </p>
+        </footer>
+
+        <!-- JS -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+        <!-- <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js" integrity="sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh" crossorigin=""></script> -->
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+        <script src="https://cdn.jsdelivr.net/combine/npm/moment@2.24.0/moment.min.js,npm/chart.js@2.9.4,npm/lodash@4.17.15/lodash.min.js,npm/fetch-polyfill@0.8.2/fetch.min.js"></script>
+
+        <!-- old map related -->
+        <script src="https://api.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js"></script>
+        <link href="https://api.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css" rel="stylesheet" />
+        <!-- end of old map related -->
+        <script type='text/javascript ' src='https://isankadn.github.io/static/markers.js '></script>
+        <!-- <script type='text/javascript ' src='static/maps/leaf-demo.js '></script> -->
+<script type="text/javascript" src="/index.js"></script></body>
+
+</html>

@@ -1,4 +1,3 @@
-
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -8,16 +7,16 @@ const CopyPlugin = require('copy-webpack-plugin');
 module.exports = {
     mode: 'development',
     entry: {
-        index: ['./src/index.js', './src/index.scss']
+        index: ['./src/index.js', './src/index.scss'],
     },
     output: {
         path: path.resolve(__dirname, 'docs'),
         filename: '[name].js',
-        publicPath: '/'
+        publicPath: '/',
     },
 
     devServer: {
-        contentBase: './docs'
+        contentBase: './docs',
     },
 
     plugins: [
@@ -25,30 +24,41 @@ module.exports = {
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: 'src/index.html',
-            chunks: ['index']
+            chunks: ['index'],
         }),
         new HtmlWebpackPlugin({
             bodyClass: 'embed',
             filename: 'embed.html',
             template: 'src/index.html',
-            chunks: ['index']
+            chunks: ['index'],
         }),
         new HtmlWebpackPlugin({
             bodyClass: 'impactmodel',
             filename: 'impactmodel.html',
             template: 'src/impactmodel.html',
-            chunks: ['impactmodel']
+            chunks: ['impactmodel'],
+        }),
+        new HtmlWebpackPlugin({
+            bodyClass: 'deaths',
+            filename: 'deaths.html',
+            template: 'src/deaths.html',
+            chunks: ['index'],
+        }),
+        new HtmlWebpackPlugin({
+            bodyClass: 'for-covid-patients',
+            filename: 'for-covid-patients.html',
+            template: 'src/for-covid-patients.html',
+            chunks: ['index'],
         }),
         new CopyPlugin([{ from: 'static/**', to: '.', flatten: false }]),
         new MiniCssExtractPlugin({
-            filename: '[name].css'
-        })
+            filename: '[name].css',
+        }),
     ],
     module: {
-        rules: [
-            {
+        rules: [{
                 test: /\.(png|svg|jpg|gif|ico|geojson)$/,
-                use: ['file-loader']
+                use: ['file-loader'],
             },
             {
                 test: /\.scss$/,
@@ -58,10 +68,10 @@ module.exports = {
                     { loader: 'postcss-loader' },
                     {
                         loader: 'sass-loader',
-                        options: { implementation: require('node-sass') }
-                    }
-                ]
-            }
-        ]
-    }
+                        options: { implementation: require('node-sass') },
+                    },
+                ],
+            },
+        ],
+    },
 }

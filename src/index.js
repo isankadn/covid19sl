@@ -1,3 +1,4 @@
+import * as c3 from 'c3'
 const tippy = require('tippy.js').default
     // mapboxgl.accessToken ='pk.eyJ1IjoiaXNhbmthZG4iLCJhIjoiY2s3dmIxYmxhMGJ2OTNmbzJnZjFxcmF6ZyJ9.Pgj6f8H7NpCRI1fNOK3MfA'
 mapboxgl.accessToken = 'pk.eyJ1IjoiaXNhbmthZG4iLCJhIjoiY2s3eGI3ams2MDFsMTNmcjRsdnh4ZTNpOSJ9.C7esI-qqpgWXdPbZe04aOw'
@@ -14,7 +15,6 @@ let LANG = 'en'
     //https://docs.google.com/spreadsheets/d/e/2PACX-1vSCRHzTX82QIyeYRwyzEdLsQZN7uq8Zqf5D1lH5g99qBbOvyQQf0xJit4WvQe2xFyzee3UrmXEkZkLa/pub?output=csv
     // Global vars
 const JSON_PATH_HPB = 'https://hpb.health.gov.lk/api/get-current-statistical'
-
 
 let ddb = {
     prefectures: undefined,
@@ -926,7 +926,7 @@ window.onload = function() {
     })
 
 }
-const FIVE_MINUTES_IN_MS = 300000
+const FIVE_MINUTES_IN_MS = 30000000
     // Reload data every INTERVAL
 setInterval(function() {
 
@@ -953,43 +953,40 @@ setInterval(function() {
 
 }, FIVE_MINUTES_IN_MS)
 
+var el = document.getElementById('range-start')
+if (el) {
+    el.addEventListener('change', function() {
+        // console.log(event.target)
+        const range_start = document.getElementById('range-start').value
+        const range_end = document.getElementById('range-end').value
 
-document.getElementById('range-start').addEventListener('change', function() {
+        loadData(function(data) {
+            jsonData = data
+                //  console.log(jsonData)
+                // console.log(new Date(range_start), new Date(range_end))
+                // console.log(range_start, range_end)
+            let newJsonData = []
+            var tmpJsonData = jsonData.daily.filter(function(s) {
+                    if (
+                        new Date(s.date) >= new Date(range_start) &&
+                        new Date(s.date) <= new Date(range_end)
+                    ) {
+                        newJsonData.push(s)
+                            // console.log(s)
+                    }
+                })
+                // console.log(newJsonData)
+                // console.log('break....')
 
+            ddb.trend = newJsonData
 
-    // console.log(event.target)
-    const range_start = document.getElementById('range-start').value
-    const range_end = document.getElementById('range-end').value
-
-    loadData(function(data) {
-        jsonData = data
-            //  console.log(jsonData)
-            // console.log(new Date(range_start), new Date(range_end))
-            // console.log(range_start, range_end)
-        let newJsonData = []
-        var tmpJsonData = jsonData.daily.filter(function(s) {
-
-                if (new Date(s.date) >= new Date(range_start) && new Date(s.date) <= new Date(range_end)) {
-                    newJsonData.push(s)
-                        // console.log(s)
-                }
-
-            })
-            // console.log(newJsonData)
-            // console.log('break....')
-
-
-
-        ddb.trend = newJsonData
-
-
-        drawKpis(ddb.totals, ddb.totalsDiff)
-        if (!document.body.classList.contains('embed-mode')) {
-
-            drawTrendChart(ddb.trend)
-        }
+            drawKpis(ddb.totals, ddb.totalsDiff)
+            if (!document.body.classList.contains('embed-mode')) {
+                drawTrendChart(ddb.trend)
+            }
+        })
     })
-})
+}
 
 var mapb = L.map('map', {
     center: [8.0324, 80.6267],
@@ -1032,4 +1029,14 @@ for (var i = 0; i < markers.length; ++i) {
             '</a>'
         )
         .addTo(mapb)
+}
+
+
+// deaths.html related JS
+
+function deathSummary() {
+    function setDeathValues(key, value) {
+        document.querySelector('#death-' + key + ' .value').innerHTML = value
+    }
+    setDeathValues('total', 35)
 }
