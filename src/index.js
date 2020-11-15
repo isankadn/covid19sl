@@ -534,7 +534,7 @@ function drawHositalTable(data) {
 
 
 
-    //   console.log(treatment_total)
+    // console.log(treatment_total)
 
     _.map(data, function(d) {
         //   console.log(d)
@@ -634,7 +634,7 @@ function drawKpis(
 }
 
 function drawTotalHospitalized(totalhospitalized) {
-    // console.log('jsonData')
+    console.log('jsonData')
 
     function setKpi(key, value) {
 
@@ -844,13 +844,12 @@ window.onload = function() {
 
 
 
-            hospitalData = jsonHpbData['data']['hospital_data']
+            let hospitalData = jsonHpbData['data']['hospital_data']
             drawHositalTable(hospitalData)
 
-            treatment_total =
-                jsonHpbData['data'][
-                    'local_total_number_of_individuals_in_hospitals'
-                ]
+            let treatment_total =
+                jsonHpbData['data']['local_total_number_of_individuals_in_hospitals']
+                // console.log(jsonHpbData['data']['local_total_number_of_individuals_in_hospitals'])
             if (!document.body.classList.contains('embed-mode')) {
                 drawTotalHospitalized(treatment_total)
             }
