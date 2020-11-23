@@ -1,7 +1,7 @@
 import * as c3 from 'c3'
 const tippy = require('tippy.js').default
     // mapboxgl.accessToken ='pk.eyJ1IjoiaXNhbmthZG4iLCJhIjoiY2s3dmIxYmxhMGJ2OTNmbzJnZjFxcmF6ZyJ9.Pgj6f8H7NpCRI1fNOK3MfA'
-mapboxgl.accessToken = 'pk.eyJ1IjoiaXNhbmthZG4iLCJhIjoiY2s3eGI3ams2MDFsMTNmcjRsdnh4ZTNpOSJ9.C7esI-qqpgWXdPbZe04aOw'
+    // mapboxgl.accessToken = 'pk.eyJ1IjoiaXNhbmthZG4iLCJhIjoiY2s3eGI3ams2MDFsMTNmcjRsdnh4ZTNpOSJ9.C7esI-qqpgWXdPbZe04aOw'
 const PREFECTURE_JSON_PATH = 'https://isankadn.github.io/static/prefectures.geojson'
 const JSON_PATH = 'https://covid-19sl.s3-ap-northeast-1.amazonaws.com/data.json'
 const TIME_FORMAT = 'YYYY-MM-DD'
@@ -204,361 +204,378 @@ function drawTrendChart(sheetTrend) {
         // console.log("asasazs")
         // console.log(recoveredSet.slice(1))
 
-
-    var ctx = document.getElementById('trend-chart').getContext('2d')
-    Chart.defaults.global.defaultFontFamily = "'Open Sans', helvetica, sans-serif"
-    Chart.defaults.global.defaultFontSize = 12
-    Chart.defaults.global.defaultFontColor = 'rgb(0,10,18)'
-        //   console.log(this)
-    mchart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: labelSet.slice(1),
-            datasets: [{
-                    label: 'Deceased',
-                    borderColor: COLOR_DECEASED,
-                    backgroundColor: COLOR_DECEASED,
-                    fill: false,
-                    data: deceasedSet.slice(1),
-                    pointRadius: 2,
-                },
-                {
-                    label: 'Recovered',
-                    borderColor: COLOR_RECOVERED,
-                    backgroundColor: COLOR_RECOVERED,
-                    fill: false,
-                    data: recoveredSet.slice(1),
-                    pointRadius: 2,
-                },
-                {
-                    label: 'Confirmed',
-                    borderColor: COLOR_CONFIRMED,
-                    backgroundColor: COLOR_CONFIRMED,
-                    fill: false,
-                    data: confirmedSet.slice(1),
-                    pointRadius: 2,
-                },
-                {
-                    label: 'Active',
-                    borderColor: COLOR_ACTIVE,
-                    backgroundColor: COLOR_ACTIVE,
-                    fill: false,
-                    data: activeSet.slice(1),
-                    pointRadius: 2,
-                },
-
-            ],
-        },
-        options: {
-            events: ['click'],
-            hover: {
-                mode: 'point',
-            },
-            tooltips: {
-                mode: 'index',
-                position: 'nearest',
-                titleFontSize: 9,
-                bodyFontSize: 9,
-            },
-            maintainAspectRatio: true,
-            responsive: true,
-            elements: {
-                line: {
-                    tension: 0.1,
-                },
-            },
-            legend: {
-                display: false,
-                reverse: true,
-                fullWidth: true,
-            },
-            scales: {
-                xAxes: [{
-                        display: false,
-                        type: 'time',
-                        time: {
-                            parser: TIME_FORMAT,
-                            round: 'day',
-                            tooltipFormat: 'll',
-                        },
-                        scaleLabel: {
-                            display: false,
-                            labelString: 'Date',
-                        },
+    if (document.getElementById('trend-chart')) {
+        var ctx = document.getElementById('trend-chart').getContext('2d')
+        Chart.defaults.global.defaultFontFamily = "'Open Sans', helvetica, sans-serif"
+        Chart.defaults.global.defaultFontSize = 12
+        Chart.defaults.global.defaultFontColor = 'rgb(0,10,18)'
+            //   console.log(this)
+        mchart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labelSet.slice(1),
+                datasets: [{
+                        label: 'Deceased',
+                        borderColor: COLOR_DECEASED,
+                        backgroundColor: COLOR_DECEASED,
+                        fill: false,
+                        data: deceasedSet.slice(1),
+                        pointRadius: 2,
                     },
                     {
-                        ticks: {
-                            fontSize: 8,
-                            minRotation: 90,
-                            maxRotation: 90,
-                            callback: function(value, index, values) {
-                                return new moment(value).format('DD MM')
+                        label: 'Recovered',
+                        borderColor: COLOR_RECOVERED,
+                        backgroundColor: COLOR_RECOVERED,
+                        fill: false,
+                        data: recoveredSet.slice(1),
+                        pointRadius: 2,
+                    },
+                    {
+                        label: 'Confirmed',
+                        borderColor: COLOR_CONFIRMED,
+                        backgroundColor: COLOR_CONFIRMED,
+                        fill: false,
+                        data: confirmedSet.slice(1),
+                        pointRadius: 2,
+                    },
+                    {
+                        label: 'Active',
+                        borderColor: COLOR_ACTIVE,
+                        backgroundColor: COLOR_ACTIVE,
+                        fill: false,
+                        data: activeSet.slice(1),
+                        pointRadius: 2,
+                    },
+
+                ],
+            },
+            options: {
+                events: ['click'],
+                hover: {
+                    mode: 'point',
+                },
+                tooltips: {
+                    mode: 'index',
+                    position: 'nearest',
+                    titleFontSize: 9,
+                    bodyFontSize: 9,
+                },
+                maintainAspectRatio: true,
+                responsive: true,
+                elements: {
+                    line: {
+                        tension: 0.1,
+                    },
+                },
+                legend: {
+                    display: false,
+                    reverse: true,
+                    fullWidth: true,
+                },
+                scales: {
+                    xAxes: [{
+                            display: false,
+                            type: 'time',
+                            time: {
+                                parser: TIME_FORMAT,
+                                round: 'day',
+                                tooltipFormat: 'll',
+                            },
+                            scaleLabel: {
+                                display: false,
+                                labelString: 'Date',
                             },
                         },
-                    },
-                ],
-                yAxes: [{
-                    ticks: {
-                        minor: {
-                            fontSize: 8,
+                        {
+                            ticks: {
+                                fontSize: 8,
+                                minRotation: 90,
+                                maxRotation: 90,
+                                callback: function(value, index, values) {
+                                    return new moment(value).format('DD MM')
+                                },
+                            },
                         },
-                    },
-                    scaleLabel: {
-                        fontSize: 8,
-                        display: false,
-                        labelString: 'Cases',
-                    },
-                }, ],
-            },
-        },
-    })
-    mchart.update()
-
-
-    var ctx2 = document.getElementById('trend-chart-daily-increase').getContext('2d')
-
-
-
-    mchart2 = new Chart(ctx2, {
-        type: 'bar',
-        data: {
-            labels: labelSet.slice(1),
-            datasets: [{
-                    label: 'Daily Increase',
-                    borderWidth: 1,
-                    borderColor: 'rgb(223,14,31, 1)',
-                    backgroundColor: 'rgb(223,14,31, 0.7)',
-                    fill: false,
-                    data: dailyIncreaseSet.slice(1),
-                },
-                {
-                    label: 'Daily Recovered',
-                    borderWidth: 1,
-                    borderColor: 'rgb(4,148,39, 1)',
-                    backgroundColor: 'rgb(4,148,39, 0.7)',
-                    fill: true,
-                    data: dailyRecoveredSet.slice(1),
-                },
-            ],
-        },
-        options: {
-            events: ['click'],
-            hover: {
-                mode: 'point',
-            },
-            tooltips: {
-                mode: 'index',
-                position: 'nearest',
-                titleFontSize: 9,
-                bodyFontSize: 9,
-            },
-            maintainAspectRatio: true,
-            responsive: true,
-            elements: {
-                line: {
-                    tension: 0.1,
-                },
-            },
-            legend: {
-                display: true,
-                reverse: true,
-                fullWidth: true,
-                align: 'center',
-                labels: {
-                    fontSize: 10,
-                },
-            },
-            scales: {
-                xAxes: [{
-                        offset: false,
-                        stacked: true,
-                        type: 'time',
-                        display: false,
-                        time: {
-                            unit: 'day',
-                            parser: TIME_FORMAT,
-                            round: 'day',
-                            tooltipFormat: 'll',
+                    ],
+                    yAxes: [{
+                        ticks: {
+                            minor: {
+                                fontSize: 8,
+                            },
                         },
                         scaleLabel: {
+                            fontSize: 8,
                             display: false,
-                            labelString: 'Date',
+                            labelString: 'Cases',
                         },
-                    },
+                    }, ],
+                },
+            },
+        })
+        mchart.update()
 
+    }
+
+    if (document.getElementById('trend-chart-daily-increase')) {
+        var ctx2 = document
+            .getElementById('trend-chart-daily-increase')
+            .getContext('2d')
+
+
+
+        mchart2 = new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: labelSet.slice(1),
+                datasets: [{
+                        label: 'Daily Increase',
+                        borderWidth: 1,
+                        borderColor: 'rgb(223,14,31, 1)',
+                        backgroundColor: 'rgb(223,14,31, 0.7)',
+                        fill: false,
+                        data: dailyIncreaseSet.slice(1),
+                    },
                     {
+                        label: 'Daily Recovered',
+                        borderWidth: 1,
+                        borderColor: 'rgb(4,148,39, 1)',
+                        backgroundColor: 'rgb(4,148,39, 0.7)',
+                        fill: true,
+                        data: dailyRecoveredSet.slice(1),
+                    },
+                ],
+            },
+            options: {
+                events: ['click'],
+                hover: {
+                    mode: 'point',
+                },
+                tooltips: {
+                    mode: 'index',
+                    position: 'nearest',
+                    titleFontSize: 9,
+                    bodyFontSize: 9,
+                },
+                maintainAspectRatio: true,
+                responsive: true,
+                elements: {
+                    line: {
+                        tension: 0.1,
+                    },
+                },
+                legend: {
+                    display: true,
+                    reverse: true,
+                    fullWidth: true,
+                    align: 'center',
+                    labels: {
+                        fontSize: 10,
+                    },
+                },
+                scales: {
+                    xAxes: [{
+                            offset: false,
+                            stacked: true,
+                            type: 'time',
+                            display: false,
+                            time: {
+                                unit: 'day',
+                                parser: TIME_FORMAT,
+                                round: 'day',
+                                tooltipFormat: 'll',
+                            },
+                            scaleLabel: {
+                                display: false,
+                                labelString: 'Date',
+                            },
+                        },
+
+                        {
+                            gridLines: {
+                                offsetGridLines: false,
+                                display: true,
+                            },
+                            ticks: {
+                                beginAtZero: true,
+                                fontSize: 8,
+                                minRotation: 90,
+                                maxRotation: 90,
+                                callback: function(value, index, values) {
+                                    return new moment(value).format('DD MM')
+                                },
+                            },
+                        },
+                    ],
+
+                    yAxes: [{
                         gridLines: {
                             offsetGridLines: false,
-                            display: true,
                         },
                         ticks: {
-                            beginAtZero: true,
-                            fontSize: 8,
-                            minRotation: 90,
-                            maxRotation: 90,
-                            callback: function(value, index, values) {
-                                return new moment(value).format('DD MM')
+                            minor: {
+                                fontSize: 8,
                             },
                         },
-                    },
-                ],
 
-                yAxes: [{
-                    gridLines: {
-                        offsetGridLines: false,
-                    },
-                    ticks: {
-                        minor: {
+                        scaleLabel: {
                             fontSize: 8,
+                            display: false,
+                            labelString: 'Cases',
                         },
-                    },
+                    }, ],
+                },
 
-                    scaleLabel: {
-                        fontSize: 8,
-                        display: false,
-                        labelString: 'Cases',
-                    },
-                }, ],
-            },
+                animation: {
+                    duration: 1,
+                    onComplete: function() {
+                        var chartInstance = this.chart
 
-            animation: {
-                duration: 1,
-                onComplete: function() {
-                    var chartInstance = this.chart
+                        ctx = chartInstance.ctx
+                        this.chart.options.scales.yAxes[0].ticks.minor.fontSize = Math.round(
+                            this.chart.width / 64
+                        )
 
-                    ctx = chartInstance.ctx
-                    this.chart.options.scales.yAxes[0].ticks.minor.fontSize = Math.round(
-                        this.chart.width / 64
-                    )
+                        ctx.font = Chart.helpers.fontString(
+                            Math.round(this.chart.width / 64),
+                            Chart.defaults.global.defaultFontStyle,
+                            Chart.defaults.global.defaultFontFamily
+                        )
 
-                    ctx.font = Chart.helpers.fontString(
-                        Math.round(this.chart.width / 64),
-                        Chart.defaults.global.defaultFontStyle,
-                        Chart.defaults.global.defaultFontFamily
-                    )
+                        ctx.textAlign = 'center'
+                        ctx.textBaseline = 'bottom'
 
-                    ctx.textAlign = 'center'
-                    ctx.textBaseline = 'bottom'
+                        this.data.datasets.forEach(function(dataset, i) {
+                            var meta = chartInstance.controller.getDatasetMeta(i)
 
-                    this.data.datasets.forEach(function(dataset, i) {
-                        var meta = chartInstance.controller.getDatasetMeta(i)
+                            meta.data.forEach(function(bar, index) {
+                                if (dataset.data[index].y > 0) {
+                                    var data = dataset.data[index].y
 
-                        meta.data.forEach(function(bar, index) {
-                            if (dataset.data[index].y > 0) {
-                                var data = dataset.data[index].y
-
-                                ctx.fillText(data, bar._model.x, bar._model.y)
-                            }
+                                    ctx.fillText(data, bar._model.x, bar._model.y)
+                                }
+                            })
                         })
-                    })
+                    },
                 },
             },
-        },
-    })
-
+        })
+    }
 }
 
 
 function drawPrefectureTable(prefectures, totals) {
     // Draw the Cases By Prefecture table
-
-    let dataTable = document.querySelector('#prefectures-table tbody')
-    let unspecifiedRow = ''
-
-    // Remove the loading cell
-    dataTable.innerHTML = ''
-
-    // Parse values so we can sort
-    _.map(prefectures, function(pref) {
-        //   console.log(pref.recovered)
-        // TODO change to confirmed
-        pref.confirmed = (pref.cases ? parseInt(pref.cases) : 0)
-        pref.recovered = (pref.recovered ? parseInt(pref.recovered) : 0)
-            // TODO change to deceased
-        pref.deceased = (pref.deaths ? parseInt(pref.deaths) : 0)
-    })
-
-    // Iterate through and render table rows
-    _.orderBy(prefectures, 'confirmed', 'desc').map(function(pref) {
-        if (!pref.confirmed && !pref.recovered && !pref.deceased) {
-            return
-        }
-
-        let prefStr
+    if (document.querySelector('#prefectures-table tbody')) {
+        let dataTable = document.querySelector('#prefectures-table tbody')
 
 
+        let unspecifiedRow = ''
+
+        // Remove the loading cell
+        // console.log(dataTable + "qqqqq")
+
+        dataTable.innerHTML = ''
+
+
+
+        // Parse values so we can sort
+        _.map(prefectures, function(pref) {
+            //   console.log(pref.recovered)
+            // TODO change to confirmed
+            pref.confirmed = (pref.cases ? parseInt(pref.cases) : 0)
+            pref.recovered = (pref.recovered ? parseInt(pref.recovered) : 0)
+                // TODO change to deceased
+            pref.deceased = (pref.deaths ? parseInt(pref.deaths) : 0)
+        })
+
+        // Iterate through and render table rows
+        _.orderBy(prefectures, 'confirmed', 'desc').map(function(pref) {
+            if (!pref.confirmed && !pref.recovered && !pref.deceased) {
+                return
+            }
+
+            let prefStr
+
+
+            if (LANG == 'en') {
+                prefStr = pref.prefecture
+            } else if (LANG == 'si') {
+                prefStr = pref.prefecturesi
+            } else if (LANG == 'ta') {
+                prefStr = pref.prefectureta
+            }
+            // TODO Make this pretty
+
+            if (pref.prefecture == 'Unspecified') {
+                // Save the "Unspecified" row for the end of the table
+                unspecifiedRow = "<tr><td><em>" + prefStr + "</em></td><td>" + pref.confirmed + "</td><td>" + pref.recovered + "</td><td>" + pref.deaths + "</td></tr>"
+            } else if (pref.prefecture == 'Total') {
+                // Skip
+            } else {
+                if (dataTable) {
+                    dataTable.innerHTML = dataTable.innerHTML + "<tr><td>" + prefStr + "</td><td>" + pref.confirmed + "</td><td>" + pref.recovered + "</td><td>" + (pref.deceased ? pref.deceased : 0) + "</td></tr>"
+                }
+            }
+            return true
+        })
+
+        dataTable.innerHTML = dataTable.innerHTML + unspecifiedRow
+
+        let totalStr
         if (LANG == 'en') {
-            prefStr = pref.prefecture
+            totalStr = 'Total'
         } else if (LANG == 'si') {
-            prefStr = pref.prefecturesi
+            totalStr = 'එකතුව'
         } else if (LANG == 'ta') {
-            prefStr = pref.prefectureta
+            totalStr = 'மொத்தம்'
         }
-        // TODO Make this pretty
 
-        if (pref.prefecture == 'Unspecified') {
-            // Save the "Unspecified" row for the end of the table
-            unspecifiedRow = "<tr><td><em>" + prefStr + "</em></td><td>" + pref.confirmed + "</td><td>" + pref.recovered + "</td><td>" + pref.deaths + "</td></tr>"
-        } else if (pref.prefecture == 'Total') {
-            // Skip
-        } else {
-            dataTable.innerHTML = dataTable.innerHTML + "<tr><td>" + prefStr + "</td><td>" + pref.confirmed + "</td><td>" + pref.recovered + "</td><td>" + (pref.deceased ? pref.deceased : 0) + "</td></tr>"
-        }
-        return true
-    })
+        dataTable.innerHTML = dataTable.innerHTML + "<tr class='totals'><td>" + totalStr + "</td><td>" + totals.confirmed + "</td><td>" + totals.recovered + "</td><td>" + totals.deceased + "</td></tr>"
 
-    dataTable.innerHTML = dataTable.innerHTML + unspecifiedRow
-
-    let totalStr
-    if (LANG == 'en') {
-        totalStr = 'Total'
-    } else if (LANG == 'si') {
-        totalStr = 'එකතුව'
-    } else if (LANG == 'ta') {
-        totalStr = 'மொத்தம்'
     }
-
-    dataTable.innerHTML = dataTable.innerHTML + "<tr class='totals'><td>" + totalStr + "</td><td>" + totals.confirmed + "</td><td>" + totals.recovered + "</td><td>" + totals.deceased + "</td></tr>"
 }
 
 
 function drawHositalTable(data) {
     // Draw the Cases By Prefecture table
     // console.log(data)
-    let dataTable = document.querySelector('#hospital-table tbody')
-    let unspecifiedRow = ''
+    if (document.querySelector('#hospital-table tbody')) {
+        let dataTable = document.querySelector('#hospital-table tbody')
+        let unspecifiedRow = ''
 
-    // Remove the loading cell
+        // Remove the loading cell
 
-    dataTable.innerHTML = ''
-
-
-
-    // console.log(treatment_total)
-
-    _.map(data, function(d) {
-        //   console.log(d)
-        // TODO change to confirmed
-        d.hospitalname = d.hospital.name
-        d.hospitalnamesi = d.hospital.name_si
-        d.hospitalnameta = d.hospital.name_ta
-        d.testedtotal = d.cumulative_total
-        d.treatmenttotal = d.treatment_total
-            // TODO change to deceased
-            //    d.deceased = d.deaths ? parseInt(d.deaths) : 0
-
-    })
-
-    _.orderBy(data, 'testedtotal', 'desc').map(function(d) {
-        if (!d.hospitalname && !d.testedtotal && !d.treatmenttotal) {
-            return
-        }
-
-        dataTable.innerHTML = dataTable.innerHTML + '<tr><td  data-en="' + d.hospitalname + '" data-si="' + d.hospitalnamesi + '" data-ta="' + d.hospitalnameta + '" class="hospitalname">' + d.hospitalname + '</td><td>' + d.testedtotal + '</td><td>' + d.treatmenttotal + '</td></tr>'
-    })
+        dataTable.innerHTML = ''
 
 
 
+
+        // console.log(treatment_total)
+
+        _.map(data, function(d) {
+            //   console.log(d)
+            // TODO change to confirmed
+            d.hospitalname = d.hospital.name
+            d.hospitalnamesi = d.hospital.name_si
+            d.hospitalnameta = d.hospital.name_ta
+            d.testedtotal = d.cumulative_total
+            d.treatmenttotal = d.treatment_total
+                // TODO change to deceased
+                //    d.deceased = d.deaths ? parseInt(d.deaths) : 0
+
+        })
+
+        _.orderBy(data, 'testedtotal', 'desc').map(function(d) {
+            if (!d.hospitalname && !d.testedtotal && !d.treatmenttotal) {
+                return
+            }
+
+            dataTable.innerHTML = dataTable.innerHTML + '<tr><td  data-en="' + d.hospitalname + '" data-si="' + d.hospitalnamesi + '" data-ta="' + d.hospitalnameta + '" class="hospitalname">' + d.hospitalname + '</td><td>' + d.testedtotal + '</td><td>' + d.treatmenttotal + '</td></tr>'
+        })
+
+
+
+    }
 }
 
 
@@ -576,13 +593,19 @@ function drawKpis(
     // Draw the KPI values
 
     function setKpi(key, value) {
-        document.querySelector('#kpi-' + key + ' .value').innerHTML = value
+        if (document.querySelector('#kpi-' + key + ' .value')) {
+            document.querySelector('#kpi-' + key + ' .value').innerHTML = value
+        }
+
     }
 
     function setKpiDiff(key, value) {
         let diffDir = value >= 0 ? '+' : ''
-        document.querySelector('#kpi-' + key + ' .diff').innerHTML =
-            '( ' + diffDir + value + ' )'
+        if (document.querySelector('#kpi-' + key + ' .diff')) {
+            document.querySelector('#kpi-' + key + ' .diff').innerHTML =
+                '( ' + diffDir + value + ' )'
+        }
+
     }
     var highestConfirmed =
         local_total_cases > totals.confirmed ?
@@ -637,8 +660,9 @@ function drawTotalHospitalized(totalhospitalized) {
     console.log('jsonData')
 
     function setKpi(key, value) {
-
-        document.querySelector('#kpi-tested' + ' .hositalized').innerHTML = value
+        if (document.querySelector('#kpi-tested' + ' .hositalized')) {
+            document.querySelector('#kpi-tested' + ' .hositalized').innerHTML = value
+        }
 
     }
 
@@ -653,7 +677,10 @@ function drawLastUpdated(lastUpdated) {
     // TODO we should be parsing the date, but I
     // don't trust the user input on the sheet
     //let prettyUpdatedTime = moment(lastUpdated).format('MMM D, YYYY') + ' JST'
-    document.getElementById('last-updated').innerHTML = lastUpdated
+    if (document.getElementById('last-updated')) {
+        document.getElementById('last-updated').innerHTML = lastUpdated
+    }
+
 }
 
 
@@ -833,7 +860,7 @@ window.onload = function() {
             return
         }
 
-        drawMapPrefectures(pageDraws)
+        // drawMapPrefectures(pageDraws)
     }
 
     function LoadHpbDataOnPage() {
@@ -862,7 +889,7 @@ window.onload = function() {
     function loadDataOnPage() {
 
         loadData(function(data) {
-            jsonData = data
+            let jsonData = data
 
             ddb.prefectures = jsonData.prefectures
             let newTotals = calculateTotals(jsonData.daily)
@@ -911,18 +938,18 @@ window.onload = function() {
                 drawTrendChart(ddb.trend)
             }
 
-            whenMapAndDataReady()
+            // whenMapAndDataReady()
         })
     }
 
 
     LoadHpbDataOnPage()
     loadDataOnPage()
-    drawMap()
-    map.once('style.load', function(e) {
-        styleLoaded = true
-        whenMapAndDataReady()
-    })
+        // drawMap()
+        // map.once('style.load', function(e) {
+        //     styleLoaded = true
+        //     whenMapAndDataReady()
+        // })
 
 }
 const FIVE_MINUTES_IN_MS = 30000000
@@ -930,7 +957,7 @@ const FIVE_MINUTES_IN_MS = 30000000
 setInterval(function() {
 
     loadData(function(data) {
-        jsonData = data
+        let jsonData = data
 
         ddb.prefectures = jsonData.prefectures
         let newTotals = calculateTotals(jsonData.daily)
@@ -960,7 +987,7 @@ if (el) {
         const range_end = document.getElementById('range-end').value
 
         loadData(function(data) {
-            jsonData = data
+            let jsonData = data
                 //  console.log(jsonData)
                 // console.log(new Date(range_start), new Date(range_end))
                 // console.log(range_start, range_end)
@@ -987,48 +1014,48 @@ if (el) {
     })
 }
 
-var mapb = L.map('map', {
-    center: [8.0324, 80.6267],
-    minZoom: 8,
-    zoom: 8,
-})
+// var mapb = L.map('map', {
+//     center: [8.0324, 80.6267],
+//     minZoom: 8,
+//     zoom: 8,
+// })
 
-L.tileLayer(
-    'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}&b=1', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+// L.tileLayer(
+//     'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}&b=1', {
+//         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 
-        maxZoom: 18,
-        id: 'mapbox/streets-v11',
-        tileSize: 512,
-        zoomOffset: -1,
-        accessToken: 'pk.eyJ1IjoiaXNhbmthZG4iLCJhIjoiY2s3eGI3ams2MDFsMTNmcjRsdnh4ZTNpOSJ9.C7esI-qqpgWXdPbZe04aOw',
-        type: 'vector',
-    }
-).addTo(mapb)
+//         maxZoom: 18,
+//         id: 'mapbox/streets-v11',
+//         tileSize: 512,
+//         zoomOffset: -1,
+//         accessToken: 'pk.eyJ1IjoiaXNhbmthZG4iLCJhIjoiY2s3eGI3ams2MDFsMTNmcjRsdnh4ZTNpOSJ9.C7esI-qqpgWXdPbZe04aOw',
+//         type: 'vector',
+//     }
+// ).addTo(mapb)
 
-var myURL = jQuery('script[src$="index.js"]')
-    .attr('src')
-    .replace('index.js', '')
+// var myURL = jQuery('script[src$="index.js"]')
+//     .attr('src')
+//     .replace('index.js', '')
 
-var myIcon = L.icon({
-    iconUrl: myURL + 'static/maps/images/pin24.png',
-    iconRetinaUrl: myURL + 'static/maps/images/pin48.png',
-    iconSize: [29, 24],
-    iconAnchor: [9, 21],
-    popupAnchor: [0, -14],
-})
+// var myIcon = L.icon({
+//     iconUrl: myURL + 'static/maps/images/pin24.png',
+//     iconRetinaUrl: myURL + 'static/maps/images/pin48.png',
+//     iconSize: [29, 24],
+//     iconAnchor: [9, 21],
+//     popupAnchor: [0, -14],
+// })
 
-for (var i = 0; i < markers.length; ++i) {
-    L.marker([markers[i].lat, markers[i].lng], { icon: myIcon })
-        .bindPopup(
-            '<a href="' +
-            markers[i].url +
-            '" target="_blank">' +
-            markers[i].name +
-            '</a>'
-        )
-        .addTo(mapb)
-}
+// for (var i = 0; i < markers.length; ++i) {
+//     L.marker([markers[i].lat, markers[i].lng], { icon: myIcon })
+//         .bindPopup(
+//             '<a href="' +
+//             markers[i].url +
+//             '" target="_blank">' +
+//             markers[i].name +
+//             '</a>'
+//         )
+//         .addTo(mapb)
+// }
 
 
 // deaths.html related JS
