@@ -4,7 +4,7 @@
   "description": "",
   "main": "cache-sheet.js",
   "dependencies": {
-    "aws-sdk": "^2.626.0",
+    "aws-sdk": "^2.814.0",
     "console-stamp": "^3.0.0-rc4.1",
     "drive-db": "^5.0.3"
   },
