@@ -16,7 +16,7 @@
     "dependencies": {
         "@babel/core": "^7.7.7",
         "c3": "^0.7.20",
-        "express": "^4.17.1",
+        "express": "^4.17.3",
         "lodash": "^4.17.20",
         "normalize.css": "^8.0.1",
         "tippy.js": "^6.1.0"
